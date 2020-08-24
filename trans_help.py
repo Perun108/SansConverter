@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.pushButton, 1, 1, 1, 1)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(
-            "/home/brijabasi/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            "/home/Perun108/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.label = QtWidgets.QLabel(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(
