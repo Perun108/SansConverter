@@ -18,7 +18,7 @@ class Ui_SansConverter(object):
         SansConverter.setMinimumSize(QtCore.QSize(0, 0))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(
-            "/home/brijabasi/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            "/home/Perun108/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         SansConverter.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(SansConverter)
         sizePolicy = QtWidgets.QSizePolicy(
@@ -193,7 +193,7 @@ class Ui_SansConverter(object):
     def retranslateUi(self, SansConverter):
         _translate = QtCore.QCoreApplication.translate
         SansConverter.setWindowTitle(_translate(
-            "SansConverter", "SansConverter (v0.5)"))
+            "SansConverter", "SansConverter (v1.0)"))
         SansConverter.setStatusTip(_translate(
             "SansConverter", "Welcome to SansConverter"))
         self.pushButton.setText(_translate("SansConverter", "Copy text"))
