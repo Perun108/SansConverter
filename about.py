@@ -28,7 +28,7 @@ class Ui_Dialog2(object):
         self.gridLayout.addWidget(self.label, 0, 0, 1, 2)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(
-            "/home/Perun108/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            "/home/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.pushButton = QtWidgets.QPushButton(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(
@@ -51,7 +51,7 @@ class Ui_Dialog2(object):
                                       "SansConverter is an offline tool to easily convert romanized Sanskrit text from one system of transliteration to another.""<br/>""<br/>"
                                       "It can also be used to type in Sanskrit text with diacritics (using HK or Velthuis systems).""<br/>""<br/>"
                                       "Copyright © 2020 Kostiantyn Perun.""<br/>"
-                                      "Version 1.0.""<br/>""<a href=\"https://github.com/Perun108\">https://github.com/Perun108</a>""<br/>"
+                                      "Version 1.5""<br/>""<a href=\"https://github.com/Perun108\">https://github.com/Perun108</a>""<br/>"
                                       "<br/>""Send your feedback or suggestions to <a href= \"mailto: bbd.ids@gmail.com\">bbd.ids@gmail.com</a>"))
         self.pushButton.setText(_translate("Dialog", "Close"))
 

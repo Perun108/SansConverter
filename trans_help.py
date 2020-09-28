@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.pushButton, 1, 1, 1, 1)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(
-            "/home/Perun108/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            "/home/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.label = QtWidgets.QLabel(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(
@@ -55,10 +55,10 @@ class Ui_Dialog(object):
                                       "<b>- Velthuis</b> is another ASCII scheme which allows capital letters.""<br/>"
                                       "- Cyrillic (Russian and Ukrainian) are based on the IAST system.""<br/>""<br/>"
                                       "<b>Velthuis scheme:</b>""<br/>"
-                                      "- a double vowel for all long vowels (“aa”, “ii”, “uu”, “.rr”, “AA”, “.RR”, etc.)""<br/>"
-                                      "- a dot before any consonant that has an underdot in IAST (“.m” for “ṃ”, “.r” for “ṛ”, “.t” for “ṭ”, etc.)""<br/>"
-                                      "- a double quotation mark before any consonant that has any additional diacritical mark about it in IAST (except “ñ”) (“n for ṅ, \"s for ś, etc.)""<br/>"
-                                      "- a tilde before “n” for ñ.""<br/>"
+                                      "- a double vowel for all long vowels (aa = ā, ii = ī, .rr = ṝ, AA = Ā, .RR = Ṝ, etc.)""<br/>"
+                                      "- a dot before any consonant that has an underdot in IAST (.m = ṃ, .r = ṛ, .t = ṭ, etc.)""<br/>"
+                                      "- a double quotation mark before any consonant that has any diacritical mark above it in IAST (except 'ñ') (thus, “n = ṅ and \"s = ś)""<br/>"
+                                      "- a tilde (~) before n = ñ.""<br/>"
                                       "<br/>"
                                       "<b>Harvard-Kyoto scheme:</b>""<br/>"
                                       "A = ā, I = ī, U = ū, R = ṛ, RR = ṝ, lR = ḷ, M = ṃ, H = ḥ, G = ṅ, J = ñ, T = ṭ, D = ḍ, N = ṇ, z = ś, S = ṣ""<br/>"
