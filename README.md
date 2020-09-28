@@ -29,3 +29,7 @@ The program requires no installation and you can just drag and drop the .exe or 
 There is some more information about transliteration systems under “Help” menu. 
 
 You can also send your feedback or reports to the address given in the “About” menu. 
+
+![Demonstration of SansConverter in action](SansConverter_demo_gif/SC_1.gif)
+![Demonstration of SansConverter in action](SansConverter_demo_gif/SC_2.gif)
+![Demonstration of SansConverter in action](SansConverter_demo_gif/SC_3.gif)
