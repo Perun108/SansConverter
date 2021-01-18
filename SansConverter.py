@@ -115,18 +115,7 @@ class SansConverter(QtWidgets.QMainWindow):
                 string = string.replace("Э", "E")
         # Replace russian e at the beginning of a word
         if encoding2 == "Cyrillic (Russian)":
-            if string.startswith("е"):
-                string = string.replace("е", "э", 1)
-            if string.startswith("Е"):
-                string = string.replace("Е", "Э", 1)
-            if "\nе" in string:
-                string = string.replace("\nе", "\nэ")
-            if "\nЕ" in string:
-                string = string.replace("\nЕ", "\nЭ")
-            if " е" in string:
-                string = string.replace(" е", " э")
-            if " Е" in string:
-                string = string.replace(" Е", " Э")
+            string = self.replace_russian_e_at_start(string)
         # Change anusvara if the checkBox is checked
         if self.ui.checkBox.isChecked() and ("ṁ" in string or "Ṁ" in string):
             string = string.replace("ṁ", "ṃ")
@@ -167,6 +156,21 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(x)
         else:
             self.ui.textBrowser.setPlainText(string)
+
+    def replace_russian_e_at_start(self, string):
+        if string.startswith("е"):
+            string = string.replace("е", "э", 1)
+        if string.startswith("Е"):
+            string = string.replace("Е", "Э", 1)
+        if "\nе" in string:
+            string = string.replace("\nе", "\nэ")
+        if "\nЕ" in string:
+            string = string.replace("\nЕ", "\nЭ")
+        if " е" in string:
+            string = string.replace(" е", " э")
+        if " Е" in string:
+            string = string.replace(" Е", " Э")
+        return string
 
     def convert_j_properly(self, string):
         try:
