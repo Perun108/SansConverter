@@ -101,16 +101,10 @@ class SansConverter(QtWidgets.QMainWindow):
         for j in range(len(list1)):
             if list1[j] in string:
                 string = string.replace(list1[j], list2[j])
+        
         # Set proper case for 'Дж'
         if "Дж" in string:
-            try:
-                position = 0
-                while string != "Дж" and position != -1:
-                    if string[position:].startswith("Дж") and string[position + 2].isupper():
-                        string = string[:position] + "ДЖ" + string[position+2:]
-                    position = string.find("Дж", position+1)
-            except IndexError:
-                string = string[:-1] + "Ж"
+            string = self.convert_j_properly(string)
         # Replace russian e when converting from Ukrainian
         if encoding1 == "Cyrillic (Russian)" and encoding2 != "Cyrillic (Russian)":
             if encoding2 == "Cyrillic (Ukrainian)":
@@ -173,6 +167,17 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(x)
         else:
             self.ui.textBrowser.setPlainText(string)
+
+    def convert_j_properly(self, string):
+        try:
+            position = 0
+            while string != "Дж" and position != -1:
+                if string[position:].startswith("Дж") and string[position + 2].isupper():
+                    string = string[:position] + "ДЖ" + string[position+2:]
+                position = string.find("Дж", position+1)
+        except IndexError:
+            string = string[:-1] + "Ж"
+        return string
 
     def pressed(self):
         """
