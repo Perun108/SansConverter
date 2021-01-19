@@ -116,7 +116,7 @@ class SansConverter(QtWidgets.QMainWindow):
         self.ui2.setupUi(self.window)
         self.window.show()
 
-    def convert(self, text, list1, list2, encoding1, encoding2):
+    def convert(self, string, list1, list2, encoding1, encoding2):
         """
         This is the main method which converts between encodings
         It would be great to refactor it, but no time to do it now,
@@ -131,7 +131,6 @@ class SansConverter(QtWidgets.QMainWindow):
         encoding1 (string): Name of the original encoding
         encoding2 (string): Name of the target encoding
         """
-        string = text
         for j in range(len(list1)):
             if list1[j] in string:
                 string = string.replace(list1[j], list2[j])
@@ -233,7 +232,7 @@ class SansConverter(QtWidgets.QMainWindow):
         elif encoding2 == "HK":  # Peculiarities of the HK scheme, it uses only lowercase letters
             if encoding1 not in self.cyrillic_encodings and text.islower():
                 self.convert(
-                    text, roman_encodings[encoding1], hk, encoding1, encoding2)
+                    text, self.roman_encodings[encoding1], self.hk, encoding1, encoding2)
             else:
                 self.convert(
                     text.lower(), all_encodingsc_names[encoding1], hk_ext, encoding1, encoding2)
