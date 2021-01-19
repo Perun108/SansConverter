@@ -162,31 +162,31 @@ class SansConverter(QtWidgets.QMainWindow):
         # if yes then follow the loops below
         if (encoding1 == "Cyrillic (Ukrainian)" or encoding2 == "Cyrillic (Ukrainian)"):
             # 's' is a temporary list of all the symbols in our converted text
-            # 'asp_cy' and 'asp_en' are list of letters corresponding to the aspirated
+            # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
             # consonants in Sanskrit (Cyrillic and Roman).
-            s = list(string)
-            asp_cy = ["к", "ґ", "ч", "ж", "т̣", "д̣", "т", "д", "п", "б"]
-            asp_en = ["k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b"]
-            for i in range(len(s)-1):
-                if s[i].lower() in asp_cy and s[i+1] == "х":
-                    s[i+1] = "г"
-                elif s[i].lower() in asp_cy and s[i+1] == "Х":
-                    s[i+1] = "Г"
-                if s[i].lower() in asp_en and s[i+1] == "г":
-                    s[i+1] = "h"
-                elif s[i].lower() in asp_en and s[i+1] == "Г":
-                    s[i+1] = "H"
+            temp_symbols = list(string)
+            aspirated_cyrillic = ["к", "ґ", "ч", "ж", "т̣", "д̣", "т", "д", "п", "б"]
+            aspirated_roman = ["k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b"]
+            for i in range(len(temp_symbols)-1):
+                if temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "х":
+                    temp_symbols[i+1] = "г"
+                elif temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "Х":
+                    temp_symbols[i+1] = "Г"
+                if temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "г":
+                    temp_symbols[i+1] = "h"
+                elif temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "Г":
+                    temp_symbols[i+1] = "H"
             # This is only for Ukrainian into Russian (change dga into dha)
             if (encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)"):
-                for i in range(len(s)-1):
-                    if s[i].lower() in asp_cy and s[i+1] == "г":
-                        s[i+1] = "х"
-                    elif s[i].lower() in asp_cy and s[i+1] == "Г":
-                        s[i+1] = "Х"
+                for i in range(len(temp_symbols)-1):
+                    if temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "г":
+                        temp_symbols[i+1] = "х"
+                    elif temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "Г":
+                        temp_symbols[i+1] = "Х"
             # 'x' is the joined list 's' (original converted text
             # but now with all necessary transormations)
-            x = "".join(s)
-            self.ui.textBrowser.setPlainText(x)
+            converted_text = "".join(temp_symbols)
+            self.ui.textBrowser.setPlainText(converted_text)
         else:
             self.ui.textBrowser.setPlainText(string)
 
