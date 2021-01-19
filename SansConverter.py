@@ -138,7 +138,6 @@ class SansConverter(QtWidgets.QMainWindow):
         for j in range(len(start_symbols_list)):
             if start_symbols_list[j] in string:
                 string = string.replace(start_symbols_list[j], end_symbols_list[j])
-        
         # Set proper case for 'Дж'
         if "Дж" in string:
             string = self.convert_j_properly(string)
