@@ -38,12 +38,13 @@ class SansConverter(QtWidgets.QMainWindow):
                     "V", "Y", 'aa', 'ii', 'uu', '.l', '.rr', '.r', '"s', '.s', '"n', '~n', '.t', '.d', '.n', '.h', '.m', "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
     # 'ext' is the names of Cyrillic encodings
     # 'roman_encodings' is the names of Roman encodings
-    # 'ext_enc_names' is the names of full versions of both Roman and Cyrillic encodings
+    # 'all_encodingsc_names' is the names of full versions of both Roman and Cyrillic encodings
     cyrillic_encodings = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)"]
     roman_encodings = {"Balaram": balaram, "IAST": iast,
                  "HK": hk, "Velthius": velthius}
-    ext_roman_encodings = {"Balaram": balaram_ext, "IAST": iast_ext, "HK": hk_ext,
+    all_encodings = {"Balaram": balaram_ext, "IAST": iast_ext, "HK": hk_ext,
                      "Velthius": velthius_ext, "Cyrillic (Russian)": rus, "Cyrillic (Ukrainian)": ukr}
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_SansConverter()
@@ -235,7 +236,7 @@ class SansConverter(QtWidgets.QMainWindow):
                     text, roman_encodings[encoding1], hk, encoding1, encoding2)
             else:
                 self.convert(
-                    text.lower(), ext_enc_names[encoding1], hk_ext, encoding1, encoding2)
+                    text.lower(), all_encodingsc_names[encoding1], hk_ext, encoding1, encoding2)
         # Simplify transliteration of the similar encodings that are based on Roman script
         elif encoding1 not in self.cyrillic_encodings and encoding2 not in ext:
             self.convert(text, roman_encodings[encoding1],
@@ -243,7 +244,7 @@ class SansConverter(QtWidgets.QMainWindow):
         # For transliterating between Roman and Cyrillic transliterations
         else:
             self.convert(
-                text, ext_enc_names[encoding1], ext_enc_names[encoding2], encoding1, encoding2)
+                text, all_encodingsc_names[encoding1], all_encodingsc_names[encoding2], encoding1, encoding2)
 
     def copy_converted(self):
         """
