@@ -235,15 +235,15 @@ class SansConverter(QtWidgets.QMainWindow):
                     text, self.roman_encodings[encoding1], self.hk, encoding1, encoding2)
             else:
                 self.convert(
-                    text.lower(), all_encodingsc_names[encoding1], hk_ext, encoding1, encoding2)
+                    text.lower(), self.all_encodingsc_names[encoding1], self.hk_ext, encoding1, encoding2)
         # Simplify transliteration of the similar encodings that are based on Roman script
-        elif encoding1 not in self.cyrillic_encodings and encoding2 not in ext:
-            self.convert(text, roman_encodings[encoding1],
-                         roman_encodings[encoding2], encoding1, encoding2)
+        elif encoding1 not in self.cyrillic_encodings and encoding2 not in self.cyrillic_encodings:
+            self.convert(text, self.roman_encodings[encoding1],
+                         self.roman_encodings[encoding2], encoding1, encoding2)
         # For transliterating between Roman and Cyrillic transliterations
         else:
             self.convert(
-                text, all_encodingsc_names[encoding1], all_encodingsc_names[encoding2], encoding1, encoding2)
+                text, self.all_encodingsc_names[encoding1], self.all_encodingsc_names[encoding2], encoding1, encoding2)
 
     def copy_converted(self):
         """
