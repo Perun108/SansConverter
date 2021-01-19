@@ -161,21 +161,10 @@ class SansConverter(QtWidgets.QMainWindow):
         # Check if any encoding is Ukrainian
         # if yes then follow the loops below
         if (encoding1 == "Cyrillic (Ukrainian)" or encoding2 == "Cyrillic (Ukrainian)"):
-            # 's' is a temporary list of all the symbols in our converted text
+            # 'temp_symbols' is a temporary list of all the symbols in our converted text
             # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
             # consonants in Sanskrit (Cyrillic and Roman).
-            temp_symbols = list(string)
-            aspirated_cyrillic = ["к", "ґ", "ч", "ж", "т̣", "д̣", "т", "д", "п", "б"]
-            aspirated_roman = ["k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b"]
-            for i in range(len(temp_symbols)-1):
-                if temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "х":
-                    temp_symbols[i+1] = "г"
-                elif temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "Х":
-                    temp_symbols[i+1] = "Г"
-                if temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "г":
-                    temp_symbols[i+1] = "h"
-                elif temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "Г":
-                    temp_symbols[i+1] = "H"
+            temp_symbols, aspirated_cyrillic = self.convert_aspirated_cyrillic_properly(string)
             # This is only for Ukrainian into Russian (change dga into dha)
             if (encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)"):
                 for i in range(len(temp_symbols)-1):
@@ -189,6 +178,24 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(converted_text)
         else:
             self.ui.textBrowser.setPlainText(string)
+
+    def convert_aspirated_cyrillic_properly(self, string):
+        # 'temp_symbols' is a temporary list of all the symbols in our converted text
+        # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
+        # consonants in Sanskrit (Cyrillic and Roman).
+        temp_symbols = list(string)
+        aspirated_cyrillic = ["к", "ґ", "ч", "ж", "т̣", "д̣", "т", "д", "п", "б"]
+        aspirated_roman = ["k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b"]
+        for i in range(len(temp_symbols)-1):
+            if temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "х":
+                temp_symbols[i+1] = "г"
+            elif temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "Х":
+                temp_symbols[i+1] = "Г"
+            if temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "г":
+                temp_symbols[i+1] = "h"
+            elif temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "Г":
+                temp_symbols[i+1] = "H"
+        return temp_symbols, aspirated_cyrillic
 
     def replace_russian_e_at_start(self, string):
         if string.startswith("е"):
