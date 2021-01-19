@@ -169,17 +169,21 @@ class SansConverter(QtWidgets.QMainWindow):
             temp_symbols = self.convert_aspirated_cyrillic_properly(string)
             # This is only for Ukrainian into Russian (change dga into dha)
             if (encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)"):
-                for i in range(len(temp_symbols)-1):
-                    if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "г":
-                        temp_symbols[i+1] = "х"
-                    elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "Г":
-                        temp_symbols[i+1] = "Х"
+                temp_symbols = self.change_ga_to_ha(temp_symbols)
             # 'x' is the joined list 's' (original converted text
             # but now with all necessary transormations)
             converted_text = "".join(temp_symbols)
             self.ui.textBrowser.setPlainText(converted_text)
         else:
             self.ui.textBrowser.setPlainText(string)
+
+    def change_ga_to_ha(self, temp_symbols):
+        for i in range(len(temp_symbols)-1):
+            if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "г":
+                temp_symbols[i+1] = "х"
+            elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "Г":
+                temp_symbols[i+1] = "Х"
+        return temp_symbols
 
     def convert_aspirated_cyrillic_properly(self, string):
         # 'temp_symbols' is a temporary list of all the symbols in our converted text
