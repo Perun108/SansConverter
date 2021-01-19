@@ -36,6 +36,10 @@ class SansConverter(QtWidgets.QMainWindow):
 
     velthius_ext = ['AA', 'II', 'UU', '.L', '.RR', '.R', '"N', '~N', '.T', '.D', '.N', '"S', '.S', '.H', '.M', "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
                     "V", "Y", 'aa', 'ii', 'uu', '.l', '.rr', '.r', '"s', '.s', '"n', '~n', '.t', '.d', '.n', '.h', '.m', "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
+    # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
+    # consonants in Sanskrit (Cyrillic and Roman).
+    aspirated_cyrillic = ["к", "ґ", "ч", "ж", "т̣", "д̣", "т", "д", "п", "б"]
+    aspirated_roman = ["k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b"]
     # 'cyrillic_encodings' is the names of Cyrillic encodings
     cyrillic_encodings = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)"]
     # 'roman_encodings' is the names of Roman encodings
@@ -162,15 +166,13 @@ class SansConverter(QtWidgets.QMainWindow):
         # if yes then follow the loops below
         if (encoding1 == "Cyrillic (Ukrainian)" or encoding2 == "Cyrillic (Ukrainian)"):
             # 'temp_symbols' is a temporary list of all the symbols in our converted text
-            # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
-            # consonants in Sanskrit (Cyrillic and Roman).
-            temp_symbols, aspirated_cyrillic = self.convert_aspirated_cyrillic_properly(string)
+            temp_symbols = self.convert_aspirated_cyrillic_properly(string)
             # This is only for Ukrainian into Russian (change dga into dha)
             if (encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)"):
                 for i in range(len(temp_symbols)-1):
-                    if temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "г":
+                    if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "г":
                         temp_symbols[i+1] = "х"
-                    elif temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "Г":
+                    elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "Г":
                         temp_symbols[i+1] = "Х"
             # 'x' is the joined list 's' (original converted text
             # but now with all necessary transormations)
@@ -184,18 +186,16 @@ class SansConverter(QtWidgets.QMainWindow):
         # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
         # consonants in Sanskrit (Cyrillic and Roman).
         temp_symbols = list(string)
-        aspirated_cyrillic = ["к", "ґ", "ч", "ж", "т̣", "д̣", "т", "д", "п", "б"]
-        aspirated_roman = ["k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b"]
         for i in range(len(temp_symbols)-1):
-            if temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "х":
+            if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "х":
                 temp_symbols[i+1] = "г"
-            elif temp_symbols[i].lower() in aspirated_cyrillic and temp_symbols[i+1] == "Х":
+            elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "Х":
                 temp_symbols[i+1] = "Г"
-            if temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "г":
+            if temp_symbols[i].lower() in self.aspirated_roman and temp_symbols[i+1] == "г":
                 temp_symbols[i+1] = "h"
-            elif temp_symbols[i].lower() in aspirated_roman and temp_symbols[i+1] == "Г":
+            elif temp_symbols[i].lower() in self.aspirated_roman and temp_symbols[i+1] == "Г":
                 temp_symbols[i+1] = "H"
-        return temp_symbols, aspirated_cyrillic
+        return temp_symbols
 
     def replace_russian_e_at_start(self, string):
         if string.startswith("е"):
