@@ -123,13 +123,13 @@ class SansConverter(QtWidgets.QMainWindow):
         plus this is the single method that transforms and outputs
         the target text, so need to figure out how to refactor it keeping this in mind
         Args:
-        text (string): input text to convert into another encoding
+        string (str): input text to convert into another encoding
         list1 (list): list with all symbols of the original encoding
         (each in its own place, place matters!)
         list2 (list): list with all corresponding symbols of the target encoding
         (each in its own respective place, place matters!)
-        encoding1 (string): Name of the original encoding
-        encoding2 (string): Name of the target encoding
+        encoding1 (str): Name of the original encoding
+        encoding2 (str): Name of the target encoding
         """
         for j in range(len(list1)):
             if list1[j] in string:
