@@ -37,12 +37,12 @@ class SansConverter(QtWidgets.QMainWindow):
     velthius_ext = ['AA', 'II', 'UU', '.L', '.RR', '.R', '"N', '~N', '.T', '.D', '.N', '"S', '.S', '.H', '.M', "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
                     "V", "Y", 'aa', 'ii', 'uu', '.l', '.rr', '.r', '"s', '.s', '"n', '~n', '.t', '.d', '.n', '.h', '.m', "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
     # 'ext' is the names of Cyrillic encodings
-    # 'enc_names' is the names of Roman encodings
+    # 'roman_encodings' is the names of Roman encodings
     # 'ext_enc_names' is the names of full versions of both Roman and Cyrillic encodings
     cyrillic_encodings = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)"]
-    enc_names = {"Balaram": balaram, "IAST": iast,
+    roman_encodings = {"Balaram": balaram, "IAST": iast,
                  "HK": hk, "Velthius": velthius}
-    ext_enc_names = {"Balaram": balaram_ext, "IAST": iast_ext, "HK": hk_ext,
+    ext_roman_encodings = {"Balaram": balaram_ext, "IAST": iast_ext, "HK": hk_ext,
                      "Velthius": velthius_ext, "Cyrillic (Russian)": rus, "Cyrillic (Ukrainian)": ukr}
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -232,14 +232,14 @@ class SansConverter(QtWidgets.QMainWindow):
         elif encoding2 == "HK":  # Peculiarities of the HK scheme, it uses only lowercase letters
             if encoding1 not in self.cyrillic_encodings and text.islower():
                 self.convert(
-                    text, enc_names[encoding1], hk, encoding1, encoding2)
+                    text, roman_encodings[encoding1], hk, encoding1, encoding2)
             else:
                 self.convert(
                     text.lower(), ext_enc_names[encoding1], hk_ext, encoding1, encoding2)
         # Simplify transliteration of the similar encodings that are based on Roman script
         elif encoding1 not in self.cyrillic_encodings and encoding2 not in ext:
-            self.convert(text, enc_names[encoding1],
-                         enc_names[encoding2], encoding1, encoding2)
+            self.convert(text, roman_encodings[encoding1],
+                         roman_encodings[encoding2], encoding1, encoding2)
         # For transliterating between Roman and Cyrillic transliterations
         else:
             self.convert(
