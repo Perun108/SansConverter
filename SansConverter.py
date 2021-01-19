@@ -36,12 +36,12 @@ class SansConverter(QtWidgets.QMainWindow):
 
     velthius_ext = ['AA', 'II', 'UU', '.L', '.RR', '.R', '"N', '~N', '.T', '.D', '.N', '"S', '.S', '.H', '.M', "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
                     "V", "Y", 'aa', 'ii', 'uu', '.l', '.rr', '.r', '"s', '.s', '"n', '~n', '.t', '.d', '.n', '.h', '.m', "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
-    # 'ext' is the names of Cyrillic encodings
-    # 'roman_encodings' is the names of Roman encodings
-    # 'all_encodings_names' is the names of full versions of both Roman and Cyrillic encodings
+    # 'cyrillic_encodings' is the names of Cyrillic encodings
     cyrillic_encodings = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)"]
+    # 'roman_encodings' is the names of Roman encodings
     roman_encodings = {"Balaram": balaram, "IAST": iast,
                  "HK": hk, "Velthius": velthius}
+    # 'all_encodings_names' is the names of full versions of both Roman and Cyrillic encodings
     all_encodings = {"Balaram": balaram_ext, "IAST": iast_ext, "HK": hk_ext,
                      "Velthius": velthius_ext, "Cyrillic (Russian)": rus, "Cyrillic (Ukrainian)": ukr}
     
