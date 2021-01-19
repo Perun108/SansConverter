@@ -116,7 +116,7 @@ class SansConverter(QtWidgets.QMainWindow):
         self.ui2.setupUi(self.window)
         self.window.show()
 
-    def convert(self, string, list1, list2, encoding1, encoding2):
+    def convert(self, string, start_symbols_list, end_symbols_list, encoding1, encoding2):
         """
         This is the main method which converts between encodings
         It would be great to refactor it, but no time to do it now,
@@ -124,16 +124,16 @@ class SansConverter(QtWidgets.QMainWindow):
         the target text, so need to figure out how to refactor it keeping this in mind
         Args:
         string (str): input text to convert into another encoding
-        list1 (list): list with all symbols of the original encoding
+        start_symbols_list (list): list with all symbols of the original encoding
         (each in its own place, place matters!)
-        list2 (list): list with all corresponding symbols of the target encoding
+        end_symbols_list (list): list with all corresponding symbols of the target encoding
         (each in its own respective place, place matters!)
         encoding1 (str): Name of the original encoding
         encoding2 (str): Name of the target encoding
         """
-        for j in range(len(list1)):
-            if list1[j] in string:
-                string = string.replace(list1[j], list2[j])
+        for j in range(len(start_symbols_list)):
+            if start_symbols_list[j] in string:
+                string = string.replace(start_symbols_list[j], end_symbols_list[j])
         
         # Set proper case for 'Дж'
         if "Дж" in string:
