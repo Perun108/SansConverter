@@ -6,7 +6,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupGUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(617, 440)
+        Dialog.resize(617, 500)
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
         self.pushButton = QtWidgets.QPushButton(Dialog)
@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.pushButton, 1, 1, 1, 1)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(
-            "/home/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            "/home/brijabasi/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.label = QtWidgets.QLabel(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(
@@ -53,7 +53,8 @@ class Ui_Dialog(object):
                                       "<br/>""<b>- Balaram</b> is a legacy ASCII transliteration system developed by ISKCON BBT.""<br/>"
                                       "<b>- Harvard-Kyoto</b> is another ASCII scheme to transliterate Sanskrit on any English keyboard without any additional software (but without capital letters).""<br/>"
                                       "<b>- Velthuis</b> is another ASCII scheme which allows capital letters.""<br/>"
-                                      "- Cyrillic (Russian and Ukrainian) are based on the IAST system.""<br/>""<br/>"
+                                      "<b>- Gaura Times</b> is a non-Unicode Cyrillic system used in Russian ISKCON publications and Russian online vedabase.""<br/>"
+                                      "- Cyrillic (Russian and Ukrainian) is based on the IAST system.""<br/>""<br/>"
                                       "<b>Velthuis scheme:</b>""<br/>"
                                       "- a double vowel for all long vowels (aa = ā, ii = ī, .rr = ṝ, AA = Ā, .RR = Ṝ, etc.)""<br/>"
                                       "- a dot before any consonant that has an underdot in IAST (.m = ṃ, .r = ṛ, .t = ṭ, etc.)""<br/>"

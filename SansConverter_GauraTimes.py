@@ -2,9 +2,9 @@
 
 import sys
 from PyQt5 import QtWidgets, QtCore
-from converter_generated import Ui_SansConverter
-from about import Ui_Dialog2
-from trans_help import Ui_Dialog
+from converter_generated_GauraTimes import Ui_SansConverter
+from about_GauraTimes import Ui_Dialog2
+from trans_help_GauraTimes import Ui_Dialog
 
 
 class SansConverter(QtWidgets.QMainWindow):
@@ -51,51 +51,42 @@ class SansConverter(QtWidgets.QMainWindow):
         self.show()
 
     def clear_input(self):
-        """
-        Clears the input window (and undo history!)
-        """
+        """Clears the input window (and undo history!)"""
         self.ui.textEdit.clear()
         self.ui.textEdit.repaint()
 
     def paste_input(self):
-        """
-        Paste text from clipboard into input window
-        """
+        """Paste text from clipboard into nput window"""
         self.ui.textEdit.paste()
         self.ui.textEdit.repaint()
 
     def open_help(self):
-        """
-        Opens another dialog window with help in it
-        """
+        """Opens another dialog window with help in it"""
         self.window = QtWidgets.QDialog()
         self.ui1 = Ui_Dialog()
         self.ui1.setupGUi(self.window)
         self.window.show()
 
     def open_about(self):
-        """
-        Opens another dialog window with 'About' information
-        """
+        """Opens another dialog window with 'About' information"""
         self.window = QtWidgets.QDialog()
         self.ui2 = Ui_Dialog2()
         self.ui2.setupUi(self.window)
         self.window.show()
 
     def convert(self, text, list1, list2, encoding1, encoding2):
-        """
-        This is the main method which converts between encodings
-        It would be great to refactor it, but no time to do it now,
-        plus this is the single method that transforms and outputs
-        the target text, so need to figure out how to refactor it keeping this in mind
+        """This is the main method which converts between encodings
+            It would be great to refactor it, but no time to do it now,
+            plus this is the single method that transforms and outputs
+            the target text, so need to figure out how to refactor it keeping this in mind
         Args:
-        text (string): input text to convert into another encoding
-        list1 (list): list with all symbols of the original encoding
-        (each in its own place, place matters!)
-        list2 (list): list with all corresponding symbols of the target encoding
-        (each in its own respective place, place matters!)
-        encoding1 (string): Name of the original encoding
-        encoding2 (string): Name of the target encoding
+            text (string): input text to convert into another encoding
+            list1 (list): list with all symbols of the original encoding
+                (each in its own place, place matters!)
+            list2 (list): list with all corresponding symbols of the target encoding
+                (each in its own respective place, place matters!)
+            encoding1 (string): Name of the original encoding
+            encoding2 (string): Name of the target encoding
         """
         string = text
         for j in range(len(list1)):
@@ -112,7 +103,8 @@ class SansConverter(QtWidgets.QMainWindow):
             except IndexError:
                 string = string[:-1] + "Ж"
         # Replace russian e when converting from Ukrainian
-        if encoding1 == "Cyrillic (Russian)" and encoding2 != "Cyrillic (Russian)":
+        russian_encodings = ("Cyrillic (Russian)", "Gaura Times (BBT)")
+        if encoding1 in russian_encodings and encoding2 not in russian_encodings:
             if encoding2 == "Cyrillic (Ukrainian)":
                 string = string.replace("э", "е")
                 string = string.replace("Э", "Е")
@@ -120,7 +112,7 @@ class SansConverter(QtWidgets.QMainWindow):
                 string = string.replace("э", "e")
                 string = string.replace("Э", "E")
         # Replace russian e at the beginning of a word
-        if encoding2 == "Cyrillic (Russian)":
+        if encoding2 in russian_encodings:
             if string.startswith("е"):
                 string = string.replace("е", "э", 1)
             if string.startswith("Е"):
@@ -140,6 +132,9 @@ class SansConverter(QtWidgets.QMainWindow):
         elif self.ui.checkBox.isChecked() and ("м̇" in string or "М̇" in string):
             string = string.replace("м̇", "м̣")
             string = string.replace("М̇", "М̣")
+        elif self.ui.checkBox.isChecked() and ("" in string or "" in string):
+            string = string.replace("", "")
+            string = string.replace("", "")
         if encoding1 == "HK":
             string = string.lower()
         # Check if any encoding is Ukrainian
@@ -161,7 +156,7 @@ class SansConverter(QtWidgets.QMainWindow):
                 elif s[i].lower() in asp_en and s[i+1] == "Г":
                     s[i+1] = "H"
             # This is only for Ukrainian into Russian (change dga into dha)
-            if (encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)"):
+            if (encoding1 == "Cyrillic (Ukrainian)" and encoding2 in russian_encodings):
                 for i in range(len(s)-1):
                     if s[i].lower() in asp_cy and s[i+1] == "г":
                         s[i+1] = "х"
@@ -175,8 +170,7 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(string)
 
     def pressed(self):
-        """
-        This is a method which selects and sends arguments to the convert method
+        """This is a method which selects and sends arguments to the convert method
         The first 4 lists are short lists with only those Roman letters that have diacritical marks
         They are used for converting between two encodings that are based on Roman script
         Other lists (rus, ukr, gaura_times and the rest with '_ext' are long lists with *all* symbols
@@ -197,6 +191,9 @@ class SansConverter(QtWidgets.QMainWindow):
         ukr = ["Ā", "Ī", "Ӯ", "Л̣", "Р̣̄", "Р̣", "Н̇", "Н̃", "Т̣", "Д̣", "Н̣", "Ш́", "Ш", "Х̣", "М̇", "А", "Б", "Ч", "Дж", "ДЖ", "Д", "Е", "Ґ", "Х", "І", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "В",
                "Й", "ā", "ī", "ӯ", "л̣", "р̣̄", "р̣", "ш́", "ш", "н̇", "н̃", "т̣", "д̣", "н̣", "х̣", "м̇", "а", "б", "ч", "дж", "д", "е", "ґ", "х", "і", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "в", "й"]
 
+        gaura_times = ["", "Ӣ", "Ӯ", "", "", "", "", "", "", "", "", "", "Ш", "", "", "А", "Б", "Ч", "Дж", "ДЖ", "Д", "Е", "Г", "Х", "И", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "В",
+                       "Й", "", "ӣ", "ӯ", "", "", "", "", "ш", "", "", "", "", "", "", "", "а", "б", "ч", "дж", "д", "е", "г", "х", "и", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "в", "й"]
+
         balaram_ext = ["Ä", "É", "Ü", "Ÿ", "È", "Å", "Ì", "Ï", "Ö", "Ò", "Ë", "Ç", "Ñ", "Ù", "À", "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
                        "V", "Y", "ä", "é", "ü", "ÿ", "è", "å", "ç", "ñ", "ì", "ï", "ö", "ò", "ë", "ù", "à", "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
 
@@ -214,11 +211,12 @@ class SansConverter(QtWidgets.QMainWindow):
         # 'ext' is the names of Cyrillic encodings
         # 'enc_names' is the names of Roman encodings
         # 'ext_enc_names' is the names of full versions of both Roman and Cyrillic encodings
-        ext = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)"]
+        ext = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)",
+               "Gaura Times (BBT)"]
         enc_names = {"Balaram": balaram, "IAST": iast,
                      "HK": hk, "Velthius": velthius}
         ext_enc_names = {"Balaram": balaram_ext, "IAST": iast_ext, "HK": hk_ext,
-                         "Velthius": velthius_ext, "Cyrillic (Russian)": rus, "Cyrillic (Ukrainian)": ukr}
+                         "Velthius": velthius_ext, "Cyrillic (Russian)": rus, "Cyrillic (Ukrainian)": ukr, "Gaura Times (BBT)": gaura_times}
         if encoding1 == encoding2:  # To save time for identical encodings
             self.ui.textBrowser.setPlainText(text)
         elif encoding2 == "HK":  # Peculiarities of the HK scheme, it uses only lowercase letters
@@ -238,17 +236,13 @@ class SansConverter(QtWidgets.QMainWindow):
                 text, ext_enc_names[encoding1], ext_enc_names[encoding2], encoding1, encoding2)
 
     def copy_converted(self):
-        """
-        Copies converted text from the output window when the 'Copy' button is pressed
-        """
+        """Copies converted text from the output window when the 'Copy' button is pressed"""
         self.ui.textBrowser.selectAll()
         self.ui.textBrowser.copy()
 
     def swap_encodings(self):
-        """
-        Pastes converted text from the output window, swaps encodings
-        and converts the text back into original encoding
-        """
+        """Pastes converted text from the output window, swaps encodings
+        and converts the text back into original encoding"""
         output = self.ui.textBrowser.toPlainText()
         enc1 = self.ui.comboBox.currentText()
         enc2 = self.ui.comboBox_2.currentText()
@@ -258,9 +252,7 @@ class SansConverter(QtWidgets.QMainWindow):
         self.ui.textEdit.repaint()
 
     def closeEvent(self, event):
-        """
-        Remembers settings and quits the program
-        """
+        """Remembers settings and quits the program"""
         self.settings.setValue("encoding1", self.ui.comboBox.currentText())
         self.settings.setValue("encoding2", self.ui.comboBox_2.currentText())
         self.settings.setValue("Use m", self.ui.checkBox.isChecked())
