@@ -209,7 +209,7 @@ class Ui_SansConverter(object):
     def retranslateUi(self, SansConverter):
         _translate = QtCore.QCoreApplication.translate
         SansConverter.setWindowTitle(_translate(
-            "SansConverter", "SansConverter 1.5gt (Gaura Times edition)"))
+            "SansConverter", "SansConverter 1.6gt (Gaura Times edition)"))
         SansConverter.setStatusTip(_translate(
             "SansConverter", "Welcome to SansConverter"))
         self.pushButton.setText(_translate("SansConverter", "Copy text"))
