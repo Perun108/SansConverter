@@ -182,7 +182,7 @@ class Ui_SansConverter(object):
         """Sing all buttons and GUI elements"""
 
         _translate = QtCore.QCoreApplication.translate
-        SansConverter.setWindowTitle(_translate("SansConverter", "SansConverter (v1.6)"))
+        SansConverter.setWindowTitle(_translate("SansConverter", "SansConverter (v1.7)"))
         SansConverter.setStatusTip(_translate("SansConverter", "Welcome to SansConverter"))
         self.pushButton.setText(_translate("SansConverter", "Copy text"))
         self.pushButton.setStatusTip(_translate("SansConverter", "Copy converted text (Ctrl+C)"))
