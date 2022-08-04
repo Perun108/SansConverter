@@ -1,54 +1,100 @@
-# -*- coding: utf-8 -*-
+"""The main module for app logic"""
 
 import sys
-from PyQt5 import QtWidgets, QtCore
-from converter_generated import Ui_SansConverter
-from about import Ui_Dialog2
-from trans_help import Ui_Dialog
+
+from PyQt5 import QtCore, QtWidgets
+
+from windows.about import Ui_Dialog2
+from windows.converter import Ui_SansConverter
+from windows.help import Ui_Dialog
 
 
 class SansConverter(QtWidgets.QMainWindow):
-    """This is the main class with all the logic and connection between GUI parts and class methods"""
+    """This is the main class with all the logic and connections between the GUI parts and class methods"""
+
     settings = QtCore.QSettings("SansConverter", "Converter")
-    balaram = ["ä", "é", "ü", "ÿ", "è", "å", "ñ", "ì", "ï", "ö", "ò", "ë", "ç", "ù",
-               "à", "Ä", "É", "Ü", "Ÿ", "È", "Å", "Ñ", "Ì", "Ï", "Ö", "Ò", "Ë", "Ç", "Ù", "À"]
-    iast = ["ā", "ī", "ū", "ḷ", "ṝ", "ṛ", "ṣ", "ṅ", "ñ", "ṭ", "ḍ", "ṇ", "ś", "ḥ",
-            "ṁ", "Ā", "Ī", "Ū", "Ḷ", "Ṝ", "Ṛ", "Ṣ", "Ṅ", "Ñ", "Ṭ", "Ḍ", "Ṇ", "Ś", "Ḥ", "Ṁ"]
-    hk = ["A", "I", "U", "lR", "RR", "R", "S", "G", "J", "T", "D", "N", "z", "H", "M",
-          "A", "I", "U", "lR", "RR", "R", "S", "G", "J", "T", "D", "N", "z", "H", "M"]
-    velthius = ['aa', 'ii', 'uu', '.l', '.rr', '.r', '.s', '"n', '~n', '.t', '.d', '.n', '"s', '.h',
-                '.m', 'AA', 'II', 'UU', '.L', '.RR', '.R', '.S', '"N', '~N', '.T', '.D', '.N', '"S', '.H', '.M']
 
-    rus = ["Ā", "Ӣ", "Ӯ", "Л̣", "Р̣̄", "Р̣", "Н̇", "Н̃", "Т̣", "Д̣", "Н̣", "Ш́", "Ш", "Х̣", "М̇", "А", "Б", "Ч", "Дж", "ДЖ", "Д", "Е", "Г", "Х", "И", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "В",
-           "Й", "ā", "ӣ", "ӯ", "л̣", "р̣̄", "р̣", "ш́", "ш", "н̇", "н̃", "т̣", "д̣", "н̣", "х̣", "м̇", "а", "б", "ч", "дж", "д", "е", "г", "х", "и", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "в", "й"]
+    # fmt: off
+    balaram = [
+        "ä", "é", "ü", "ÿ", "è", "å", "ñ", "ì", "ï", "ö", "ò", "ë", "ç", "ù", "à",
+        "Ä", "É", "Ü", "Ÿ", "È", "Å", "Ñ", "Ì", "Ï", "Ö", "Ò", "Ë", "Ç", "Ù", "À"
+    ]
 
-    ukr = ["Ā", "Ī", "Ӯ", "Л̣", "Р̣̄", "Р̣", "Н̇", "Н̃", "Т̣", "Д̣", "Н̣", "Ш́", "Ш", "Х̣", "М̇", "А", "Б", "Ч", "Дж", "ДЖ", "Д", "Е", "Ґ", "Х", "І", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "В",
-           "Й", "ā", "ī", "ӯ", "л̣", "р̣̄", "р̣", "ш́", "ш", "н̇", "н̃", "т̣", "д̣", "н̣", "х̣", "м̇", "а", "б", "ч", "дж", "д", "е", "ґ", "х", "і", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "в", "й"]
+    iast = ["ā", "ī", "ū", "ḷ", "ṝ", "ṛ", "ṣ", "ṅ", "ñ", "ṭ", "ḍ", "ṇ", "ś", "ḥ", "ṁ",
+            "Ā", "Ī", "Ū", "Ḷ", "Ṝ", "Ṛ", "Ṣ", "Ṅ", "Ñ", "Ṭ", "Ḍ", "Ṇ", "Ś", "Ḥ", "Ṁ"]
 
-    balaram_ext = ["Ä", "É", "Ü", "Ÿ", "È", "Å", "Ì", "Ï", "Ö", "Ò", "Ë", "Ç", "Ñ", "Ù", "À", "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
-                   "V", "Y", "ä", "é", "ü", "ÿ", "è", "å", "ç", "ñ", "ì", "ï", "ö", "ò", "ë", "ù", "à", "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
+    hk = [
+        "A", "I", "U", "lR", "RR", "R", "S", "G", "J", "T", "D", "N", "z", "H", "M",
+        "A", "I", "U", "lR", "RR", "R", "S", "G", "J", "T", "D", "N", "z", "H", "M"
+    ]
 
-    iast_ext = ["Ā", "Ī", "Ū", "Ḷ", "Ṝ", "Ṛ", "Ṅ", "Ñ", "Ṭ", "Ḍ", "Ṇ", "Ś", "Ṣ", "Ḥ", "Ṁ", "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
-                "V", "Y", "ā", "ī", "ū", "ḷ", "ṝ", "ṛ", "ś", "ṣ", "ṅ", "ñ", "ṭ", "ḍ", "ṇ", "ḥ", "ṁ", "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
+    velthius = [
+        "aa", "ii", "uu", ".l", ".rr", ".r", ".s", '"n', "~n", ".t", ".d", ".n", '"s', ".h", ".m",
+        "AA", "II", "UU", ".L", ".RR", ".R", ".S", '"N', "~N", ".T", ".D", ".N", '"S', ".H", ".M"
+    ]
 
-    hk_ext = ["A", "I", "U", "lR", "RR", "R", "G", "J", "T", "D", "N", "z", "S", "H", "M", "a", "b", "c", "j", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v",
-              "y", "A", "I", "U", "lR", "RR", "R", "z", "S", "G", "J", "T", "D", "N", "H", "M", "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
+    rus = [
+        "Ā", "Ӣ", "Ӯ", "Л̣", "Р̣̄", "Р̣", "Н̇", "Н̃", "Т̣", "Д̣", "Н̣", "Ш́", "Ш", "Х̣", "М̇", "А", "Б", "Ч",
+        "Дж", "ДЖ", "Д", "Е", "Г", "Х", "И", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "В",
+        "Й", "ā", "ӣ", "ӯ", "л̣", "р̣̄", "р̣", "ш́", "ш", "н̇", "н̃", "т̣", "д̣", "н̣", "х̣", "м̇", "а", "б",
+        "ч", "дж", "д", "е", "г", "х", "и", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "в", "й"
+    ]
 
-    velthius_ext = ['AA', 'II', 'UU', '.L', '.RR', '.R', '"N', '~N', '.T', '.D', '.N', '"S', '.S', '.H', '.M', "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
-                    "V", "Y", 'aa', 'ii', 'uu', '.l', '.rr', '.r', '"s', '.s', '"n', '~n', '.t', '.d', '.n', '.h', '.m', "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"]
-    # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
-    # consonants in Sanskrit (Cyrillic and Roman).
+    ukr = [
+        "Ā", "Ī", "Ӯ", "Л̣", "Р̣̄", "Р̣", "Н̇", "Н̃", "Т̣", "Д̣", "Н̣", "Ш́", "Ш", "Х̣", "М̇", "А", "Б", "Ч",
+        "Дж", "ДЖ", "Д", "Е", "Ґ", "Х", "І", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "В",
+        "Й", "ā", "ī", "ӯ", "л̣", "р̣̄", "р̣", "ш́", "ш", "н̇", "н̃", "т̣", "д̣", "н̣", "х̣", "м̇", "а", "б",
+        "ч", "дж", "д", "е", "ґ", "х", "і", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "в", "й"
+    ]
+
+    balaram_ext = [
+        "Ä", "É", "Ü", "Ÿ", "È", "Å", "Ì", "Ï", "Ö", "Ò", "Ë", "Ç", "Ñ", "Ù", "À", "A", "B", "C",
+        "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V",
+        "Y", "ä", "é", "ü", "ÿ", "è", "å", "ç", "ñ", "ì", "ï", "ö", "ò", "ë", "ù", "à", "a", "b",
+        "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"
+    ]
+
+    iast_ext = [
+        "Ā", "Ī", "Ū", "Ḷ", "Ṝ", "Ṛ", "Ṅ", "Ñ", "Ṭ", "Ḍ", "Ṇ", "Ś", "Ṣ", "Ḥ", "Ṁ", "A", "B", "C",
+        "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V",
+        "Y", "ā", "ī", "ū", "ḷ", "ṝ", "ṛ", "ś", "ṣ", "ṅ", "ñ", "ṭ", "ḍ", "ṇ", "ḥ", "ṁ", "a", "b",
+        "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"
+    ]
+
+    hk_ext = [
+        "A", "I", "U", "lR", "RR", "R", "G", "J", "T", "D", "N", "z", "S", "H", "M", "a", "b", "c",
+        "j", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v",
+        "y", "A", "I", "U", "lR", "RR", "R", "z", "S", "G", "J", "T", "D", "N", "H", "M", "a", "b",
+        "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"
+    ]
+
+    velthius_ext = [
+        "AA", "II", "UU", ".L", ".RR", ".R", '"N', "~N", ".T", ".D", ".N", '"S', ".S", ".H", ".M",
+        "A", "B", "C", "J", "J", "D", "E", "G", "H", "I", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U",
+        "V", "Y", "aa", "ii", "uu", ".l", ".rr", ".r", '"s', ".s", '"n', "~n", ".t", ".d", ".n", ".h", ".m",
+        "a", "b", "c", "j", "d", "e", "g", "h", "i", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v", "y"
+    ]
+    # fmt: on
+
+    # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding
+    # to the aspirated consonants in Sanskrit (Cyrillic and Roman).
     aspirated_cyrillic = ["к", "ґ", "ч", "ж", "т̣", "д̣", "т", "д", "п", "б"]
     aspirated_roman = ["k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b"]
     # 'cyrillic_encodings' is the names of Cyrillic encodings
     cyrillic_encodings = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)"]
     # 'roman_encodings' is the names of Roman encodings
-    roman_encodings = {"Balaram": balaram, "IAST": iast,
-                 "HK": hk, "Velthius": velthius}
+    roman_encodings = {"Balaram": balaram, "IAST": iast, "HK": hk, "Velthius": velthius}
+
     # 'all_encodings' is the names of full versions of both Roman and Cyrillic encodings
-    all_encodings = {"Balaram": balaram_ext, "IAST": iast_ext, "HK": hk_ext,
-                     "Velthius": velthius_ext, "Cyrillic (Russian)": rus, "Cyrillic (Ukrainian)": ukr}
-    
+    all_encodings = {
+        "Balaram": balaram_ext,
+        "IAST": iast_ext,
+        "HK": hk_ext,
+        "Velthius": velthius_ext,
+        "Cyrillic (Russian)": rus,
+        "Cyrillic (Ukrainian)": ukr,
+    }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_SansConverter()
@@ -120,24 +166,25 @@ class SansConverter(QtWidgets.QMainWindow):
         self.ui2.setupUi(self.window)
         self.window.show()
 
-    def convert(self, string, start_symbols_list, end_symbols_list, encoding1, encoding2):
+    def convert(
+        self, string: str, start_symbols_list: list, end_symbols_list: list, encoding1: str, encoding2: str
+    ) -> None:
         """
-        This is the main method which converts between encodings
-        It would be great to refactor it, but no time to do it now,
-        plus this is the single method that transforms and outputs
-        the target text, so need to figure out how to refactor it keeping this in mind
+        This is the main method which converts between encodings.
+
         Args:
-        string (str): input text to convert into another encoding
-        start_symbols_list (list): list with all symbols of the original encoding
-        (each in its own place, place matters!)
-        end_symbols_list (list): list with all corresponding symbols of the target encoding
-        (each in its own respective place, place matters!)
-        encoding1 (str): Name of the original encoding
-        encoding2 (str): Name of the target encoding
+            string (str): input text to convert into another encoding
+            stat_symbols_list (list): list with all symbols of the original encoding
+                (each in its own place, place matters!)
+            end_symbols_list (list): list with all corresponding symbols of the target encoding
+                (each in its own respective place, place matters!)
+            encoding1 (str): Name of the original encoding
+            encoding2 (str): Name of the target encoding
         """
-        for j in range(len(start_symbols_list)):
-            if start_symbols_list[j] in string:
-                string = string.replace(start_symbols_list[j], end_symbols_list[j])
+
+        for i, item in enumerate(start_symbols_list):
+            if item in string:
+                string = string.replace(item, end_symbols_list[i])
         # Set proper case for 'Дж'
         if "Дж" in string:
             string = self.convert_j_properly(string)
@@ -163,11 +210,11 @@ class SansConverter(QtWidgets.QMainWindow):
             string = string.lower()
         # Check if any encoding is Ukrainian
         # if yes then follow the loops below
-        if (encoding1 == "Cyrillic (Ukrainian)" or encoding2 == "Cyrillic (Ukrainian)"):
+        if encoding1 == "Cyrillic (Ukrainian)" or encoding2 == "Cyrillic (Ukrainian)":
             # 'temp_symbols' is a temporary list of all the symbols in our converted text
             temp_symbols = self.convert_aspirated_cyrillic_properly(string)
             # This is only for Ukrainian into Russian (change dga into dha)
-            if (encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)"):
+            if encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)":
                 temp_symbols = self.change_ga_to_ha(temp_symbols)
             # 'x' is the joined list 's' (original converted text
             # but now with all necessary transormations)
@@ -176,31 +223,34 @@ class SansConverter(QtWidgets.QMainWindow):
         else:
             self.ui.textBrowser.setPlainText(string)
 
-    def change_ga_to_ha(self, temp_symbols):
-        for i in range(len(temp_symbols)-1):
-            if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "г":
-                temp_symbols[i+1] = "х"
-            elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "Г":
-                temp_symbols[i+1] = "Х"
+    def change_ga_to_ha(self, temp_symbols: list) -> list:
+        """Change гг to гх in cyrillic"""
+        for i in range(len(temp_symbols) - 1):
+            if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i + 1] == "г":
+                temp_symbols[i + 1] = "х"
+            elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i + 1] == "Г":
+                temp_symbols[i + 1] = "Х"
         return temp_symbols
 
-    def convert_aspirated_cyrillic_properly(self, string):
+    def convert_aspirated_cyrillic_properly(self, string: str) -> list:
+        """Fix wrong conversions that happen due to overlapping symbols"""
         # 'temp_symbols' is a temporary list of all the symbols in our converted text
-        # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding to the aspirated
-        # consonants in Sanskrit (Cyrillic and Roman).
+        # 'aspirated_cyrillic' and 'aspirated_roman' are list of letters corresponding
+        # to the aspirated consonants in Sanskrit (Cyrillic and Roman).
         temp_symbols = list(string)
-        for i in range(len(temp_symbols)-1):
-            if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "х":
-                temp_symbols[i+1] = "г"
-            elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i+1] == "Х":
-                temp_symbols[i+1] = "Г"
-            if temp_symbols[i].lower() in self.aspirated_roman and temp_symbols[i+1] == "г":
-                temp_symbols[i+1] = "h"
-            elif temp_symbols[i].lower() in self.aspirated_roman and temp_symbols[i+1] == "Г":
-                temp_symbols[i+1] = "H"
+        for i in range(len(temp_symbols) - 1):
+            if temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i + 1] == "х":
+                temp_symbols[i + 1] = "г"
+            elif temp_symbols[i].lower() in self.aspirated_cyrillic and temp_symbols[i + 1] == "Х":
+                temp_symbols[i + 1] = "Г"
+            if temp_symbols[i].lower() in self.aspirated_roman and temp_symbols[i + 1] == "г":
+                temp_symbols[i + 1] = "h"
+            elif temp_symbols[i].lower() in self.aspirated_roman and temp_symbols[i + 1] == "Г":
+                temp_symbols[i + 1] = "H"
         return temp_symbols
 
-    def replace_russian_e_at_start(self, string):
+    def replace_russian_e_at_start(self, string: str) -> str:
+        """Replaces е with э at the beginning of a word"""
         if string.startswith("е"):
             string = string.replace("е", "э", 1)
         if string.startswith("Е"):
@@ -215,20 +265,21 @@ class SansConverter(QtWidgets.QMainWindow):
             string = string.replace(" Е", " Э")
         return string
 
-    def convert_j_properly(self, string):
+    def convert_j_properly(self, string: str) -> str:
+        """Converts j to  cyrillic дж"""
         try:
             position = 0
             while string != "Дж" and position != -1:
                 if string[position:].startswith("Дж") and string[position + 2].isupper():
-                    string = string[:position] + "ДЖ" + string[position+2:]
-                position = string.find("Дж", position+1)
+                    string = string[:position] + "ДЖ" + string[position + 2 :]
+                position = string.find("Дж", position + 1)
         except IndexError:
             string = string[:-1] + "Ж"
         return string
 
-    def pressed(self):
+    def pressed(self) -> None:
         """
-        This is a method which selects and sends arguments to the convert method
+        Selects and sends arguments to the 'convert' method
         The first 4 lists are short lists with only those Roman letters that have diacritical marks
         They are used for converting between two encodings that are based on Roman script
         Other lists (rus, ukr, gaura_times and the rest with '_ext' are long lists with *all* symbols
@@ -241,28 +292,24 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(text)
         elif encoding2 == "HK":  # Peculiarities of the HK scheme, it uses only lowercase letters
             if encoding1 not in self.cyrillic_encodings and text.islower():
-                self.convert(
-                    text, self.roman_encodings[encoding1], self.hk, encoding1, encoding2)
+                self.convert(text, self.roman_encodings[encoding1], self.hk, encoding1, encoding2)
             else:
-                self.convert(
-                    text.lower(), self.all_encodings[encoding1], self.hk_ext, encoding1, encoding2)
+                self.convert(text.lower(), self.all_encodings[encoding1], self.hk_ext, encoding1, encoding2)
         # Simplify transliteration of the similar encodings that are based on Roman script
         elif encoding1 not in self.cyrillic_encodings and encoding2 not in self.cyrillic_encodings:
-            self.convert(text, self.roman_encodings[encoding1],
-                         self.roman_encodings[encoding2], encoding1, encoding2)
+            self.convert(text, self.roman_encodings[encoding1], self.roman_encodings[encoding2], encoding1, encoding2)
         # For transliterating between Roman and Cyrillic transliterations
         else:
-            self.convert(
-                text, self.all_encodings[encoding1], self.all_encodings[encoding2], encoding1, encoding2)
+            self.convert(text, self.all_encodings[encoding1], self.all_encodings[encoding2], encoding1, encoding2)
 
-    def copy_converted(self):
+    def copy_converted(self) -> None:
         """
         Copies converted text from the output window when the 'Copy' button is pressed
         """
         self.ui.textBrowser.selectAll()
         self.ui.textBrowser.copy()
 
-    def swap_encodings(self):
+    def swap_encodings(self) -> None:
         """
         Pastes converted text from the output window, swaps encodings
         and converts the text back into original encoding
@@ -275,7 +322,7 @@ class SansConverter(QtWidgets.QMainWindow):
         self.ui.textEdit.setPlainText(output)
         self.ui.textEdit.repaint()
 
-    def closeEvent(self, event):
+    def closeEvent(self, event) -> None:
         """
         Remembers settings and quits the program
         """
@@ -286,7 +333,7 @@ class SansConverter(QtWidgets.QMainWindow):
         self.settings.setValue("Position", self.pos())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = SansConverter()
     sys.exit(app.exec_())
