@@ -203,7 +203,7 @@ class SansConverter(QtWidgets.QMainWindow):
             string = self.replace_russian_e_from_ukrainian(string, encoding2)
         # Replace russian e at the beginning of a word
         if encoding2 == "Cyrillic (Russian)":
-            string = self.replace_russian_e_at_start(string)
+            string = self.replace_russian_e_at_beginning(string)
         # Change anusvara if the checkBox is checked
         if self.ui.checkBox.isChecked():
             string = self.change_anusvara_type(string)
@@ -271,7 +271,7 @@ class SansConverter(QtWidgets.QMainWindow):
                 temp_symbols[i + 1] = "H"
         return temp_symbols
 
-    def replace_russian_e_at_start(self, string: str) -> str:
+    def replace_russian_e_at_beginning(self, string: str) -> str:
         """Replaces е with э at the beginning of a word"""
         if string.startswith("е"):
             string = string.replace("е", "э", 1)
@@ -304,7 +304,7 @@ class SansConverter(QtWidgets.QMainWindow):
         Selects and sends arguments to the 'convert' method
         The first 4 lists are short lists with only those Roman letters that have diacritical marks
         They are used for converting between two encodings that are based on Roman script
-        Other lists (RUS, UKR, gaura_times and the rest with '_ext' are long lists with *all* symbols
+        Other lists (RUS, UKR, GAURA_TIMES and the rest with '_EXT' are long lists with *all* symbols
         of the Roman/Cyrillic alphabet in both uppercase and lowercase)
         """
         text = self.ui.textEdit.toPlainText()
