@@ -1,5 +1,5 @@
 # SansConverter
-A converter for different Sanskrit transliteration systems
+A stand-alone cross-platform converter for different Sanskrit transliteration systems
 
 ### Description
 SansConverter is an offline program that allows you to easily and quickly convert transliterated Sanskrit text from one transliteration system to another. You can also type in Sanskrit text in the standard Roman transliteration (IAST) (or other systems) using just your standard QWERTY keyboard.
