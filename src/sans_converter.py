@@ -200,12 +200,7 @@ class SansConverter(QtWidgets.QMainWindow):
             string = self.convert_j_properly(string)
         # Replace russian e when converting from Ukrainian
         if encoding1 == "Cyrillic (Russian)" and encoding2 != "Cyrillic (Russian)":
-            if encoding2 == "Cyrillic (Ukrainian)":
-                string = string.replace("э", "е")
-                string = string.replace("Э", "Е")
-            else:
-                string = string.replace("э", "e")
-                string = string.replace("Э", "E")
+            string = self.replace_russian_e_from_ukrainian(string, encoding2)
         # Replace russian e at the beginning of a word
         if encoding2 == "Cyrillic (Russian)":
             string = self.replace_russian_e_at_start(string)
@@ -232,6 +227,15 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(converted_text)
         else:
             self.ui.textBrowser.setPlainText(string)
+
+    def replace_russian_e_from_ukrainian(self, string, encoding2):
+        if encoding2 == "Cyrillic (Ukrainian)":
+            string = string.replace("э", "е")
+            string = string.replace("Э", "Е")
+        else:
+            string = string.replace("э", "e")
+            string = string.replace("Э", "E")
+        return string
 
     def change_ga_to_ha(self, temp_symbols: list) -> list:
         """Change гг to гх in cyrillic"""
