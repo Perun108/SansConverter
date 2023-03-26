@@ -209,20 +209,21 @@ class SansConverter(QtWidgets.QMainWindow):
             string = self.change_anusvara_type(string)
         if encoding1 == "HK":
             string = string.lower()
-        # Check if any encoding is Ukrainian
-        # if yes then follow the loops below
+        # If any encoding is Ukrainian then follow the loops below
         if encoding1 == "Cyrillic (Ukrainian)" or encoding2 == "Cyrillic (Ukrainian)":
-            # 'temp_symbols' is a temporary list of all the symbols in our converted text
-            temp_symbols = self.convert_aspirated_cyrillic_properly(string)
-            # This is only for Ukrainian into Russian (change dga into dha)
-            if encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)":
-                temp_symbols = self.change_ga_to_ha(temp_symbols)
+            string = self.convert_ukrainian(string, encoding1, encoding2)
+        self.ui.textBrowser.setPlainText(string)
+
+    def convert_ukrainian(self, string, encoding1, encoding2):
+        # 'temp_symbols' is a temporary list of all the symbols in our converted text
+        temp_symbols = self.convert_aspirated_cyrillic_properly(string)
+        # This is only for Ukrainian into Russian (change dga into dha)
+        if encoding1 == "Cyrillic (Ukrainian)" and encoding2 == "Cyrillic (Russian)":
+            temp_symbols = self.change_ga_to_ha(temp_symbols)
             # 'x' is the joined list 's' (original converted text
             # but now with all necessary transormations)
-            converted_text = "".join(temp_symbols)
-            self.ui.textBrowser.setPlainText(converted_text)
-        else:
-            self.ui.textBrowser.setPlainText(string)
+        converted_text = "".join(temp_symbols)
+        return converted_text
 
     def change_anusvara_type(self, string):
         if "ṁ" in string:
