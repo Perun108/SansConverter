@@ -83,7 +83,12 @@ class SansConverter(QtWidgets.QMainWindow):
     # 'cyrillic_encodings' is the names of Cyrillic encodings
     cyrillic_encodings = ["Cyrillic (Russian)", "Cyrillic (Ukrainian)"]
     # 'roman_encodings' is the names of Roman encodings
-    roman_encodings = {"Balaram": balaram, "IAST": iast, "HK": hk, "Velthius": velthius}
+    roman_encodings = {
+        "Balaram": balaram,
+        "IAST": iast,
+        "HK": hk,
+        "Velthius": velthius,
+    }
 
     # 'all_encodings' is the names of full versions of both Roman and Cyrillic encodings
     all_encodings = {
@@ -167,7 +172,12 @@ class SansConverter(QtWidgets.QMainWindow):
         self.window.show()
 
     def convert(
-        self, string: str, start_symbols_list: list, end_symbols_list: list, encoding1: str, encoding2: str
+        self,
+        string: str,
+        start_symbols_list: list,
+        end_symbols_list: list,
+        encoding1: str,
+        encoding2: str,
     ) -> None:
         """
         This is the main method which converts between encodings.
@@ -292,15 +302,39 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(text)
         elif encoding2 == "HK":  # Peculiarities of the HK scheme, it uses only lowercase letters
             if encoding1 not in self.cyrillic_encodings and text.islower():
-                self.convert(text, self.roman_encodings[encoding1], self.hk, encoding1, encoding2)
+                self.convert(
+                    text,
+                    self.roman_encodings[encoding1],
+                    self.hk,
+                    encoding1,
+                    encoding2,
+                )
             else:
-                self.convert(text.lower(), self.all_encodings[encoding1], self.hk_ext, encoding1, encoding2)
+                self.convert(
+                    text.lower(),
+                    self.all_encodings[encoding1],
+                    self.hk_ext,
+                    encoding1,
+                    encoding2,
+                )
         # Simplify transliteration of the similar encodings that are based on Roman script
         elif encoding1 not in self.cyrillic_encodings and encoding2 not in self.cyrillic_encodings:
-            self.convert(text, self.roman_encodings[encoding1], self.roman_encodings[encoding2], encoding1, encoding2)
+            self.convert(
+                text,
+                self.roman_encodings[encoding1],
+                self.roman_encodings[encoding2],
+                encoding1,
+                encoding2,
+            )
         # For transliterating between Roman and Cyrillic transliterations
         else:
-            self.convert(text, self.all_encodings[encoding1], self.all_encodings[encoding2], encoding1, encoding2)
+            self.convert(
+                text,
+                self.all_encodings[encoding1],
+                self.all_encodings[encoding2],
+                encoding1,
+                encoding2,
+            )
 
     def copy_converted(self) -> None:
         """
