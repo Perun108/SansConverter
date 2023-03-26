@@ -205,12 +205,8 @@ class SansConverter(QtWidgets.QMainWindow):
         if encoding2 == "Cyrillic (Russian)":
             string = self.replace_russian_e_at_start(string)
         # Change anusvara if the checkBox is checked
-        if self.ui.checkBox.isChecked() and ("ṁ" in string or "Ṁ" in string):
-            string = string.replace("ṁ", "ṃ")
-            string = string.replace("Ṁ", "Ṃ")
-        elif self.ui.checkBox.isChecked() and ("м̇" in string or "М̇" in string):
-            string = string.replace("м̇", "м̣")
-            string = string.replace("М̇", "М̣")
+        if self.ui.checkBox.isChecked():
+            string = self.change_anusvara_type(string)
         if encoding1 == "HK":
             string = string.lower()
         # Check if any encoding is Ukrainian
@@ -227,6 +223,17 @@ class SansConverter(QtWidgets.QMainWindow):
             self.ui.textBrowser.setPlainText(converted_text)
         else:
             self.ui.textBrowser.setPlainText(string)
+
+    def change_anusvara_type(self, string):
+        if "ṁ" in string:
+            string = string.replace("ṁ", "ṃ")
+        elif "Ṁ" in string:
+            string = string.replace("Ṁ", "Ṃ")
+        elif "м̇" in string:
+            string = string.replace("м̇", "м̣")
+        elif "М̇" in string:
+            string = string.replace("М̇", "М̣")
+        return string
 
     def replace_russian_e_from_ukrainian(self, string, encoding2):
         if encoding2 == "Cyrillic (Ukrainian)":
