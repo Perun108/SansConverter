@@ -72,34 +72,30 @@ ASPIRATED_ROMAN_LETTERS = ("k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b")
 # ENUMS
 class Encodings(Enum):
     BALARAM = "Balaram"
-    BALARAM_EXT = "Balaram extended"
     IAST = "IAST"
-    IAST_EXT = "IAST_EXT"
-    HK = "Harward-Kyoto"
-    HK_EXT = "Harward-Kyoto extended"
+    HK = "HK"
     VELTHIUS = "Velthius"
-    VELTHIUS_EXT = "Velthius extended"
     UKR = "Cyrillic (Ukrainian)"
     RUS = "Cyrillic (Russian)"
 
 
 # 'CYRILLIC_ENCODINGS' is the list of Cyrillic encodings names
-CYRILLIC_ENCODINGS = (Encodings.UKR, Encodings.RUS)
+CYRILLIC_ENCODINGS = (Encodings.UKR.value, Encodings.RUS.value)
 
 # 'ROMAN_ENCODINGS' is the list of Roman encodings names
 ROMAN_BASIC_ENCODINGS = {
-    Encodings.BALARAM: BALARAM,
-    Encodings.IAST: IAST,
-    Encodings.HK: HK,
-    Encodings.VELTHIUS: VELTHIUS,
+    Encodings.BALARAM.value: BALARAM,
+    Encodings.IAST.value: IAST,
+    Encodings.HK.value: HK,
+    Encodings.VELTHIUS.value: VELTHIUS,
 }
 
 # 'ALL_ENCODINGS' is the mapping of the names of full versions of both Roman and Cyrillic encodings
 ALL_EXT_ENCODINGS = {
-    Encodings.BALARAM_EXT: BALARAM_EXT,
-    Encodings.IAST_EXT: IAST_EXT,
-    Encodings.HK_EXT: HK_EXT,
-    Encodings.VELTHIUS_EXT: VELTHIUS_EXT,
-    Encodings.UKR: UKR,
-    Encodings.RUS: RUS,
+    Encodings.BALARAM.value: BALARAM_EXT,
+    Encodings.IAST.value: IAST_EXT,
+    Encodings.HK.value: HK_EXT,
+    Encodings.VELTHIUS.value: VELTHIUS_EXT,
+    Encodings.UKR.value: UKR,
+    Encodings.RUS.value: RUS,
 }
