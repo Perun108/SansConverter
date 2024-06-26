@@ -31,28 +31,24 @@ def convert(
         if item in string:
             string = string.replace(item, end_symbols_list[i])
 
-    # Set proper case for 'Дж'
-    if "Дж" in string:
-        string = _convert_j_properly(string)
-
-    # Replace russian e when converting from Ukrainian
-    if input_encoding == Encodings.RUS.value and output_encoding != Encodings.RUS.value:
-        string = _replace_russian_e_from_ukrainian(string, output_encoding)
-
-    # Replace russian e at the beginning of a word
-    if output_encoding == Encodings.RUS.value:
-        string = _replace_russian_e_at_beginning(string)
-
-    # Change anusvara if the checkBox is checked
-    if use_anusvara:
-        string = _change_anusvara_type(string)
-
     if input_encoding == Encodings.HK.value:
         string = string.lower()
 
-    # If any encoding is Ukrainian then follow the loops below
+    if use_anusvara:
+        string = _change_anusvara_type(string)
+
     if input_encoding == Encodings.UKR.value or output_encoding == Encodings.UKR.value:
         string = _convert_ukrainian(string, input_encoding, output_encoding)
+
+    # Replace russian e
+    if input_encoding == Encodings.RUS.value:
+        string = _fix_russian_e_at_beginning(string)
+        if output_encoding != Encodings.RUS.value:
+            string = _replace_russian_e(string, output_encoding)
+
+    # Set proper case for 'Дж'
+    if "Дж" in string:
+        string = _convert_j_properly(string)
 
     return string
 
@@ -81,10 +77,12 @@ def _change_anusvara_type(string):
     return string
 
 
-def _replace_russian_e_from_ukrainian(string, output_encoding):
+def _replace_russian_e(string, output_encoding):
+    # Replace russian e with Ukrainian e
     if output_encoding == Encodings.UKR.value:
         string = string.replace("э", "е")
         string = string.replace("Э", "Е")
+    # Replace russian e with Roman e
     else:
         string = string.replace("э", "e")
         string = string.replace("Э", "E")
@@ -119,7 +117,7 @@ def _convert_aspirated_cyrillic_properly(string: str) -> list:
     return temp_symbols
 
 
-def _replace_russian_e_at_beginning(string: str) -> str:
+def _fix_russian_e_at_beginning(string: str) -> str:
     """Replaces е with э at the beginning of a word"""
     if string.startswith("е"):
         string = string.replace("е", "э", 1)
