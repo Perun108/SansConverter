@@ -3,7 +3,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
+class UiHelpDialog(object):
     """Help window GUI"""
 
     def setupGUi(self, Dialog):
@@ -22,9 +22,7 @@ class Ui_Dialog(object):
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 1, 1, 1, 1)
         icon = QtGui.QIcon()
-        icon.addPixmap(
-            QtGui.QPixmap("/home/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off
-        )
+        icon.addPixmap(QtGui.QPixmap("media/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.label = QtWidgets.QLabel(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Ignored)
@@ -102,7 +100,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
+    ui = UiHelpDialog()
     ui.setupGUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())

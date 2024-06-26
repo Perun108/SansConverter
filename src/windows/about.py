@@ -2,7 +2,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog2(object):
+class UiAboutDialog(object):
     """Creates an 'About' dialog window"""
 
     def setupUi(self, Dialog):
@@ -28,9 +28,7 @@ class Ui_Dialog2(object):
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 2)
         icon = QtGui.QIcon()
-        icon.addPixmap(
-            QtGui.QPixmap("/home/Dropbox/Python_Converter/FINAL/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off
-        )
+        icon.addPixmap(QtGui.QPixmap("media/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         self.pushButton = QtWidgets.QPushButton(Dialog)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -80,7 +78,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog2()
+    ui = UiAboutDialog()
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())

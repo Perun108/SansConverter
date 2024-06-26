@@ -13,9 +13,11 @@ from encoding_mappings import (
     Encodings,
 )
 from service import convert
-from windows.about import Ui_Dialog2
+from windows.about import UiAboutDialog
 from windows.converter import Ui_SansConverter
-from windows.help import Ui_Dialog
+from windows.help import UiHelpDialog
+
+# from windows.select_encodings import UiSelectEncodingsDialog
 
 
 class SansConverter(QtWidgets.QMainWindow):
@@ -78,21 +80,30 @@ class SansConverter(QtWidgets.QMainWindow):
 
     def open_help(self):
         """
-        Opens another dialog window with help in it
+        Opens a dialog window with help in it
         """
         self.window = QtWidgets.QDialog()
-        self.ui1 = Ui_Dialog()
-        self.ui1.setupGUi(self.window)
+        self.help_ui = UiHelpDialog()
+        self.help_ui.setupGUi(self.window)
         self.window.show()
 
     def open_about(self):
         """
-        Opens another dialog window with 'About' information
+        Opens a dialog window with 'About' information
         """
         self.window = QtWidgets.QDialog()
-        self.ui2 = Ui_Dialog2()
-        self.ui2.setupUi(self.window)
+        self.about_ui = UiAboutDialog()
+        self.about_ui.setupUi(self.window)
         self.window.show()
+
+    # def open_select_encodings(self):
+    #     """
+    #     Opens a dialog window with selection of available encodings
+    #     """
+    #     self.window = QtWidgets.QDialog()
+    #     self.select_ui = UiSelectEncodingsDialog()
+    #     self.select_ui.setupGUi(self.window)
+    #     self.window.show()
 
     def convert(self) -> None:
         """
