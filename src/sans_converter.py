@@ -16,8 +16,7 @@ from service import convert
 from windows.about import UiAboutDialog
 from windows.converter import Ui_SansConverter
 from windows.help import UiHelpDialog
-
-# from windows.select_encodings import UiSelectEncodingsDialog
+from windows.select_encodings import UiSelectEncodingsDialog
 
 
 class SansConverter(QtWidgets.QMainWindow):
@@ -60,6 +59,7 @@ class SansConverter(QtWidgets.QMainWindow):
         self.ui.actionUndo.triggered.connect(self.ui.textEdit.undo)
         self.ui.actionQuit.triggered.connect(self.close)
         self.ui.actionSwap.triggered.connect(self.swap_encodings)
+        self.ui.actionSelect_encodings.triggered.connect(self.open_select_encodings)
         self.ui.actionTransliteration_help.triggered.connect(self.open_help)
         self.ui.actionAbout_SansConverter.triggered.connect(self.open_about)
         self.show()
@@ -96,14 +96,14 @@ class SansConverter(QtWidgets.QMainWindow):
         self.about_ui.setupUi(self.window)
         self.window.show()
 
-    # def open_select_encodings(self):
-    #     """
-    #     Opens a dialog window with selection of available encodings
-    #     """
-    #     self.window = QtWidgets.QDialog()
-    #     self.select_ui = UiSelectEncodingsDialog()
-    #     self.select_ui.setupGUi(self.window)
-    #     self.window.show()
+    def open_select_encodings(self):
+        """
+        Opens a dialog window with selection of available encodings
+        """
+        self.window = QtWidgets.QDialog()
+        self.select_ui = UiSelectEncodingsDialog()
+        self.select_ui.setupGUi(self.window)
+        self.window.show()
 
     def convert(self) -> None:
         """
