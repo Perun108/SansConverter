@@ -71,8 +71,8 @@ ASPIRATED_ROMAN_LETTERS = ("k", "g", "c", "j", "ṭ", "ḍ", "t", "d", "p", "b")
 
 # ENUMS
 class Encodings(Enum):
-    BALARAM = "Balaram"
     IAST = "IAST"
+    BALARAM = "Balaram"
     HK = "HK"
     VELTHIUS = "Velthius"
     UKR = "Cyrillic (Ukrainian)"

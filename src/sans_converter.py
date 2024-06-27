@@ -47,7 +47,7 @@ class SansConverter(QtWidgets.QMainWindow):
         # Convert on the go when output_encoding_name is changed manually and
         # remember it (save it to external file) to use when
         # the programs is started again
-        self.ui.comboBox_2.currentTextChanged.connect(self.convert)
+        self.ui.comboBox_2.currentIndexChanged.connect(self.convert)
         # Converts on the go while typing text into textEdit widget
         self.ui.textEdit.textChanged.connect(self.convert)
         # Converts again whenever "Use "ṃ"" is checked or unchecked

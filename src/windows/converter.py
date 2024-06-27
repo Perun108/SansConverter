@@ -2,6 +2,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from encoding_mappings import Encodings
+
 
 class Ui_SansConverter(object):
     """Main window of the application"""
@@ -62,12 +64,6 @@ class Ui_SansConverter(object):
         self.comboBox_2.setSizePolicy(sizePolicy)
         self.comboBox_2.setFocusPolicy(QtCore.Qt.TabFocus)
         self.comboBox_2.setObjectName("comboBox_2")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
         self.gridLayout_2.addWidget(self.comboBox_2, 7, 0, 1, 1)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setFocusPolicy(QtCore.Qt.TabFocus)
@@ -81,12 +77,8 @@ class Ui_SansConverter(object):
         self.comboBox.setSizePolicy(sizePolicy)
         self.comboBox.setFocusPolicy(QtCore.Qt.TabFocus)
         self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
+        self.comboBox.addItems([encoding.value for encoding in Encodings])
+        self.comboBox_2.addItems([encoding.value for encoding in Encodings])
         self.gridLayout_2.addWidget(self.comboBox, 0, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -203,23 +195,22 @@ class Ui_SansConverter(object):
         self.checkBox.setText(_translate("SansConverter", 'Use "ṃ"'))
         self.checkBox.setStatusTip(_translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")'))
         self.checkBox.setToolTip(_translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")'))
-        self.comboBox.setItemText(0, _translate("SansConverter", "Balaram"))
-        self.comboBox.setItemText(1, _translate("SansConverter", "Velthius"))
-        self.comboBox.setItemText(2, _translate("SansConverter", "HK"))
-        self.comboBox.setItemText(3, _translate("SansConverter", "IAST"))
-        self.comboBox.setItemText(4, _translate("SansConverter", "Cyrillic (Russian)"))
-        self.comboBox.setItemText(5, _translate("SansConverter", "Cyrillic (Ukrainian)"))
+        for ind, encoding in enumerate(Encodings):
+            self.comboBox.setItemText(ind, _translate("SansConverter", encoding.value))
+            self.comboBox_2.setItemText(ind, _translate("SansConverter", encoding.value))
+
         self.comboBox.setStatusTip(
-            _translate("SansConverter", 'Select input transliteration. For more info see "Help"→"Transliteration help"')
+            _translate(
+                "SansConverter",
+                'Select input transliteration. For more info see "Help"→"Transliteration help"',
+            )
         )
-        self.comboBox_2.setItemText(0, _translate("SansConverter", "IAST"))
-        self.comboBox_2.setItemText(1, _translate("SansConverter", "Cyrillic (Russian)"))
-        self.comboBox_2.setItemText(2, _translate("SansConverter", "Cyrillic (Ukrainian)"))
-        self.comboBox_2.setItemText(3, _translate("SansConverter", "Balaram"))
-        self.comboBox_2.setItemText(4, _translate("SansConverter", "HK"))
-        self.comboBox_2.setItemText(5, _translate("SansConverter", "Velthius"))
+
         self.comboBox_2.setStatusTip(
-            _translate("SansConverter", 'Select input transliteration. For more info see "Help"→"Transliteration help"')
+            _translate(
+                "SansConverter",
+                'Select input transliteration. For more info see "Help"→"Transliteration help"',
+            )
         )
         self.menuEdit.setTitle(_translate("SansConverter", "&Edit"))
         self.menuEdit.setStatusTip(_translate("SansConverter", "Edit"))
