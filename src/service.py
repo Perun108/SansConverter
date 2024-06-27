@@ -7,34 +7,37 @@ from encoding_mappings import (
 
 def convert(
     string: str,
-    start_symbols_list: tuple,
-    end_symbols_list: tuple,
+    input_characters: tuple,
+    output_characters: tuple,
     input_encoding: str,
     output_encoding: str,
-    use_anusvara: bool,
+    change_anusvara: bool = False,
 ) -> str:
     """
     This is the main method which converts between encodings.
 
     Args:
         string (str): input text to convert into another encoding
-        start_symbols_list (list): list with all symbols of the original encoding
+        input_characters (list): list with all symbols of the original encoding
             (each in its own place, index matters!)
-        end_symbols_list (list): list with all corresponding symbols of the target encoding
+        output_characters (list): list with all corresponding symbols of the target encoding
             (each in its own respective place, index matters!)
         input_encoding (str): Name of the original encoding
         output_encoding (str): Name of the target encoding
-        use_anusvara (bool): To use the dot above or under m
+        change_anusvara (bool): To use the dot above or under m
     """
 
-    for i, item in enumerate(start_symbols_list):
+    if input_encoding == output_encoding:
+        return string
+
+    for i, item in enumerate(input_characters):
         if item in string:
-            string = string.replace(item, end_symbols_list[i])
+            string = string.replace(item, output_characters[i])
 
     if input_encoding == Encodings.HK.value:
         string = string.lower()
 
-    if use_anusvara:
+    if change_anusvara:
         string = _change_anusvara_type(string)
 
     if input_encoding == Encodings.UKR.value or output_encoding == Encodings.UKR.value:
@@ -135,7 +138,7 @@ def _fix_russian_e_at_beginning(string: str) -> str:
 
 
 def _convert_j_properly(string: str) -> str:
-    """Converts j to  cyrillic дж"""
+    """Converts j to cyrillic дж"""
     try:
         position = 0
         # Check if the next character after "Дж" is uppercase

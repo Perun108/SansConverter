@@ -8,14 +8,18 @@ authors = ["Kostiantyn Perun <kosperun@gmail.com>"]
 python = "^3.9"
 PyQt5 = "=5.15.10"
 pyqt5-qt5 = "=5.15.2"
+
+[tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
 black = "^22.6.0"
 pre-commit = "^2.20.0"
 pylint = "^2.14.5"
 ipython = "^8.4.0"
-
-[tool.poetry.dev-dependencies]
+pytest = "^8.2.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
