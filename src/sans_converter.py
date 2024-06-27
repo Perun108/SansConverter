@@ -2,7 +2,8 @@
 
 import sys
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import QSettings, QSize, QPoint
+from PyQt5.QtWidgets import QMainWindow, QDialog, QApplication
 
 from encoding_mappings import (
     ALL_EXT_ENCODINGS,
@@ -14,15 +15,15 @@ from encoding_mappings import (
 )
 from service import convert
 from windows.about import UiAboutDialog
-from windows.converter import Ui_SansConverter
+from windows.main_window import Ui_SansConverter
 from windows.help import UiHelpDialog
 from windows.select_encodings import UiSelectEncodingsDialog
 
 
-class SansConverter(QtWidgets.QMainWindow):
+class SansConverter(QMainWindow):
     """This is the main class with all the logic and connections between the GUI parts and class methods"""
 
-    settings = QtCore.QSettings("SansConverter", "Converter")
+    settings = QSettings("Kos Perun", "SansConverter")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -30,11 +31,13 @@ class SansConverter(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         # Read saved settings for "Use ṃ", original and target encodings, window
         # size and position:
+        if not self.settings.value("selected_encodings"):
+            self.open_select_encodings()
         self.ui.comboBox.setCurrentText(self.settings.value("input_encoding_name"))
         self.ui.comboBox_2.setCurrentText(self.settings.value("output_encoding_name"))
         self.ui.checkBox.setChecked(self.settings.value("Use m", type=bool))
-        self.resize(self.settings.value("WindowSize", QtCore.QSize(620, 550)))
-        self.move(self.settings.value("Position", QtCore.QPoint(600, 230)))
+        self.resize(self.settings.value("WindowSize", QSize(620, 550)))
+        self.move(self.settings.value("Position", QPoint(600, 230)))
         # Linking buttons, hotkeys and menus to functions
         self.ui.pushButton.clicked.connect(self.copy_converted)
         self.ui.pushButton_2.clicked.connect(self.swap_encodings)
@@ -82,28 +85,35 @@ class SansConverter(QtWidgets.QMainWindow):
         """
         Opens a dialog window with help in it
         """
-        self.window = QtWidgets.QDialog()
+        self.window = QDialog()
         self.help_ui = UiHelpDialog()
         self.help_ui.setupGUi(self.window)
         self.window.show()
+        self.window.adjustSize()
 
     def open_about(self):
         """
         Opens a dialog window with 'About' information
         """
-        self.window = QtWidgets.QDialog()
+        self.window = QDialog()
         self.about_ui = UiAboutDialog()
         self.about_ui.setupUi(self.window)
         self.window.show()
+        self.window.adjustSize()
 
     def open_select_encodings(self):
         """
         Opens a dialog window with selection of available encodings
         """
-        self.window = QtWidgets.QDialog()
-        self.select_ui = UiSelectEncodingsDialog()
-        self.select_ui.setupGUi(self.window)
-        self.window.show()
+        # self.window = QDialog()
+        dialog = UiSelectEncodingsDialog()
+        if dialog.exec_() == QDialog.accepted:
+            selected_encodings = dialog.get_selected_encodings()
+
+        # self.select_ui = UiSelectEncodingsDialog()
+        # self.select_ui.setupUi(self.window)
+        # self.window.show()
+        # self.window.adjustSize()
 
     def convert(self) -> None:
         """
@@ -129,7 +139,10 @@ class SansConverter(QtWidgets.QMainWindow):
                     output_chars = HK_EXT
 
             # Simplify transliteration of the similar encodings that are based on Roman script
-            elif input_encoding_name not in CYRILLIC_ENCODINGS and output_encoding_name not in CYRILLIC_ENCODINGS:
+            elif (
+                input_encoding_name not in CYRILLIC_ENCODINGS
+                and output_encoding_name not in CYRILLIC_ENCODINGS
+            ):
                 input_chars = ROMAN_BASIC_ENCODINGS[input_encoding_name]
                 output_chars = ROMAN_BASIC_ENCODINGS[output_encoding_name]
 
@@ -144,7 +157,7 @@ class SansConverter(QtWidgets.QMainWindow):
                 output_chars,
                 input_encoding_name,
                 output_encoding_name,
-                use_anusvara=self.ui.checkBox.isChecked(),
+                change_anusvara=self.ui.checkBox.isChecked(),
             )
         self.ui.textBrowser.setPlainText(text)
 
@@ -180,6 +193,6 @@ class SansConverter(QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     MainWindow = SansConverter()
     sys.exit(app.exec_())

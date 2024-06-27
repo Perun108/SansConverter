@@ -13,20 +13,28 @@ class Ui_SansConverter(object):
 
         SansConverter.setObjectName("SansConverter")
         SansConverter.resize(620, 550)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(SansConverter.sizePolicy().hasHeightForWidth())
         SansConverter.setSizePolicy(sizePolicy)
         SansConverter.setMinimumSize(QtCore.QSize(0, 0))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("media/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(
+            QtGui.QPixmap("media/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off
+        )
         SansConverter.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(SansConverter)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.centralwidget.sizePolicy().hasHeightForWidth()
+        )
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setMinimumSize(QtCore.QSize(0, 0))
         self.centralwidget.setObjectName("centralwidget")
@@ -37,7 +45,9 @@ class Ui_SansConverter(object):
         self.checkBox.setObjectName("checkBox")
         self.gridLayout_2.addWidget(self.checkBox, 3, 9, 1, 1)
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.textEdit.sizePolicy().hasHeightForWidth())
@@ -57,7 +67,9 @@ class Ui_SansConverter(object):
         self.pushButton_4.setObjectName("pushButton_4")
         self.gridLayout_2.addWidget(self.pushButton_4, 2, 9, 1, 1)
         self.comboBox_2 = QtWidgets.QComboBox(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.comboBox_2.sizePolicy().hasHeightForWidth())
@@ -70,7 +82,9 @@ class Ui_SansConverter(object):
         self.pushButton.setObjectName("pushButton")
         self.gridLayout_2.addWidget(self.pushButton, 11, 9, 1, 1)
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
@@ -81,7 +95,9 @@ class Ui_SansConverter(object):
         self.comboBox_2.addItems([encoding.value for encoding in Encodings])
         self.gridLayout_2.addWidget(self.comboBox, 0, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
@@ -90,7 +106,9 @@ class Ui_SansConverter(object):
         self.pushButton_2.setObjectName("pushButton_2")
         self.gridLayout_2.addWidget(self.pushButton_2, 6, 0, 1, 1)
         self.textBrowser = QtWidgets.QTextEdit(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.textBrowser.sizePolicy().hasHeightForWidth())
@@ -179,25 +197,51 @@ class Ui_SansConverter(object):
         """Sing all buttons and GUI elements"""
 
         _translate = QtCore.QCoreApplication.translate
-        SansConverter.setWindowTitle(_translate("SansConverter", "SansConverter (v1.7)"))
-        SansConverter.setStatusTip(_translate("SansConverter", "Welcome to SansConverter"))
+        SansConverter.setWindowTitle(
+            _translate("SansConverter", "SansConverter (v1.7)")
+        )
+        SansConverter.setStatusTip(
+            _translate("SansConverter", "Welcome to SansConverter")
+        )
         self.pushButton.setText(_translate("SansConverter", "Copy text"))
-        self.pushButton.setStatusTip(_translate("SansConverter", "Copy converted text (Ctrl+C)"))
-        self.pushButton.setToolTip(_translate("SansConverter", "Copy converted text (Ctrl+C)"))
-        self.pushButton_2.setText(_translate("SansConverter", "Swap transliterations and texts"))
-        self.pushButton_2.setStatusTip(_translate("SansConverter", "Swap transliterations and texts (Alt+S)"))
+        self.pushButton.setStatusTip(
+            _translate("SansConverter", "Copy converted text (Ctrl+C)")
+        )
+        self.pushButton.setToolTip(
+            _translate("SansConverter", "Copy converted text (Ctrl+C)")
+        )
+        self.pushButton_2.setText(
+            _translate("SansConverter", "Swap transliterations and texts")
+        )
+        self.pushButton_2.setStatusTip(
+            _translate("SansConverter", "Swap transliterations and texts (Alt+S)")
+        )
         self.pushButton_3.setText(_translate("SansConverter", "Clear"))
-        self.pushButton_3.setStatusTip(_translate("SansConverter", "Clear input window (Ctrl+R)"))
-        self.pushButton_3.setToolTip(_translate("SansConverter", "Clear input window (Ctrl+R)"))
+        self.pushButton_3.setStatusTip(
+            _translate("SansConverter", "Clear input window (Ctrl+R)")
+        )
+        self.pushButton_3.setToolTip(
+            _translate("SansConverter", "Clear input window (Ctrl+R)")
+        )
         self.pushButton_4.setText(_translate("SansConverter", "Paste from clipboard"))
-        self.pushButton_4.setStatusTip(_translate("SansConverter", "Paste text to convert (Ctrl+V)"))
-        self.pushButton_4.setToolTip(_translate("SansConverter", "Paste text to convert (Ctrl+V)"))
+        self.pushButton_4.setStatusTip(
+            _translate("SansConverter", "Paste text to convert (Ctrl+V)")
+        )
+        self.pushButton_4.setToolTip(
+            _translate("SansConverter", "Paste text to convert (Ctrl+V)")
+        )
         self.checkBox.setText(_translate("SansConverter", 'Use "ṃ"'))
-        self.checkBox.setStatusTip(_translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")'))
-        self.checkBox.setToolTip(_translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")'))
+        self.checkBox.setStatusTip(
+            _translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")')
+        )
+        self.checkBox.setToolTip(
+            _translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")')
+        )
         for ind, encoding in enumerate(Encodings):
             self.comboBox.setItemText(ind, _translate("SansConverter", encoding.value))
-            self.comboBox_2.setItemText(ind, _translate("SansConverter", encoding.value))
+            self.comboBox_2.setItemText(
+                ind, _translate("SansConverter", encoding.value)
+            )
 
         self.comboBox.setStatusTip(
             _translate(
@@ -225,18 +269,38 @@ class Ui_SansConverter(object):
         self.actionRedo.setText(_translate("SansConverter", "&Redo"))
         self.actionRedo.setStatusTip(_translate("SansConverter", "Redo Ctrl+Y"))
         self.actionCopy.setText(_translate("SansConverter", "&Copy converted"))
-        self.actionCopy.setStatusTip(_translate("SansConverter", "Copy converted Ctrl+C"))
+        self.actionCopy.setStatusTip(
+            _translate("SansConverter", "Copy converted Ctrl+C")
+        )
         self.actionPaste.setText(_translate("SansConverter", "&Paste"))
         self.actionPaste.setStatusTip(_translate("SansConverter", "Paste Ctrl+V"))
-        self.actionSwap.setText(_translate("SansConverter", "&Swap transliterations and texts"))
-        self.actionSwap.setStatusTip(_translate("SansConverter", "Swap transliterations and texts Alt+S"))
+        self.actionSwap.setText(
+            _translate("SansConverter", "&Swap transliterations and texts")
+        )
+        self.actionSwap.setStatusTip(
+            _translate("SansConverter", "Swap transliterations and texts Alt+S")
+        )
         self.actionClear.setText(_translate("SansConverter", "&Clear"))
         self.actionClear.setStatusTip(_translate("SansConverter", "Clear Ctrl+R"))
         self.actionQuit.setText(_translate("SansConverter", "&Quit"))
-        self.actionQuit.setStatusTip(_translate("SansConverter", "Quit SansConverter Ctrl+Q"))
-        self.actionSelect_encodings.setText(_translate("SansConverter", "&Select encodings"))
-        self.actionSelect_encodings.setStatusTip(_translate("SansConverter", "Select encodings"))
-        self.actionTransliteration_help.setText(_translate("SansConverter", "&Transliteration help"))
-        self.actionTransliteration_help.setStatusTip(_translate("SansConverter", "Show transliteration systems help"))
-        self.actionAbout_SansConverter.setText(_translate("SansConverter", "&About SansConverter"))
-        self.actionAbout_SansConverter.setStatusTip(_translate("SansConverter", "About SansConverter"))
+        self.actionQuit.setStatusTip(
+            _translate("SansConverter", "Quit SansConverter Ctrl+Q")
+        )
+        self.actionSelect_encodings.setText(
+            _translate("SansConverter", "&Enable/Disable encodings")
+        )
+        self.actionSelect_encodings.setStatusTip(
+            _translate("SansConverter", "Enable/Disable encodings")
+        )
+        self.actionTransliteration_help.setText(
+            _translate("SansConverter", "&Transliteration help")
+        )
+        self.actionTransliteration_help.setStatusTip(
+            _translate("SansConverter", "Show transliteration systems help")
+        )
+        self.actionAbout_SansConverter.setText(
+            _translate("SansConverter", "&About SansConverter")
+        )
+        self.actionAbout_SansConverter.setStatusTip(
+            _translate("SansConverter", "About SansConverter")
+        )
