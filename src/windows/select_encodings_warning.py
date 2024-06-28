@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QDialogButtonBox, QPushButton
-from PyQt5.QtCore import Qt
 
 
 class WarningDialog(QDialog):
@@ -19,22 +18,29 @@ class WarningDialog(QDialog):
         )
         self.layout.addWidget(self.label)
 
-        self.buttonBox = QDialogButtonBox(self)
+        # self.buttonBox = QDialogButtonBox(self)
 
-        self.useAllButton = QPushButton("Use all", self)
-        self.selectButton = QPushButton("Select", self)
+        self.buttonBox = QDialogButtonBox(QDialogButtonBox.Yes | QDialogButtonBox.No)
+        self.buttonBox.button(QDialogButtonBox.Yes).setText("Use All")
+        self.buttonBox.button(QDialogButtonBox.No).setText("Go Back")
+        self.buttonBox.accepted.connect(self.accept)  # Yes
+        self.buttonBox.rejected.connect(self.reject)  # No
 
-        self.buttonBox.addButton(self.useAllButton, QDialogButtonBox.AcceptRole)
-        self.buttonBox.addButton(self.selectButton, QDialogButtonBox.RejectRole)
+        # self.useAllButton = QPushButton("Use all", self)
+        # self.selectButton = QPushButton("Select", self)
+
+        # self.buttonBox.addButton(self.useAllButton, QDialogButtonBox.AcceptRole)
+        # self.buttonBox.addButton(self.selectButton, QDialogButtonBox.RejectRole)
 
         self.layout.addWidget(self.buttonBox)
+        self.setLayout(self.layout)
 
-        self.useAllButton.clicked.connect(self.useAllEncodings)
-        self.selectButton.clicked.connect(self.reject)
+        # self.useAllButton.clicked.connect(self.accept)
+        # self.selectButton.clicked.connect(self.reject)
 
-    def useAllEncodings(self):
-        # Set all available encodings in the parent dialog
-        self.parent_dialog.selected_encodings = [
-            cb.text() for cb in self.parent_dialog.checkboxes
-        ]
-        self.accept()
+    # def useAllEncodings(self):
+    #     print("USE ALL!")
+    #     # Set all available encodings in the parent dialog
+    #     self.parent_dialog.selected_encodings = [item.value for item in Encodings]
+    #     self.parent_dialog.accept()
+    #     self.accept()

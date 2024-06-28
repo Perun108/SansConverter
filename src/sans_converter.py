@@ -15,7 +15,7 @@ from encoding_mappings import (
 )
 from service import convert
 from windows.about import UiAboutDialog
-from windows.main_window import Ui_SansConverter
+from windows.converter import Ui_SansConverter
 from windows.help import UiHelpDialog
 from windows.select_encodings import UiSelectEncodingsDialog
 
@@ -29,9 +29,14 @@ class SansConverter(QMainWindow):
         super().__init__(*args, **kwargs)
         self.ui = Ui_SansConverter()
         self.ui.setupUi(self)
+        self.all_encodings = [item.value for item in Encodings]
+
         # Read saved settings for "Use ṃ", original and target encodings, window
         # size and position:
-        if not self.settings.value("selected_encodings"):
+        self.selected_encodings = self.settings.value("selected_encodings", [])
+        if not self.selected_encodings:
+            self.selected_encodings = self.all_encodings
+            self.update_comboboxes()
             self.open_select_encodings()
         self.ui.comboBox.setCurrentText(self.settings.value("input_encoding_name"))
         self.ui.comboBox_2.setCurrentText(self.settings.value("output_encoding_name"))
@@ -105,15 +110,26 @@ class SansConverter(QMainWindow):
         """
         Opens a dialog window with selection of available encodings
         """
-        # self.window = QDialog()
-        dialog = UiSelectEncodingsDialog()
-        if dialog.exec_() == QDialog.accepted:
-            selected_encodings = dialog.get_selected_encodings()
+        dialog = UiSelectEncodingsDialog(self)
+        if dialog.exec_() == QDialog.Accepted:
+            self.selected_encodings = dialog.get_selected_encodings()
+            if not self.selected_encodings:
+                self.selected_encodings = self.all_encodings
+        else:
+            self.selected_encodings = self.all_encodings
+        self.update_comboboxes()
 
+        # self.window = QDialog()
         # self.select_ui = UiSelectEncodingsDialog()
         # self.select_ui.setupUi(self.window)
         # self.window.show()
         # self.window.adjustSize()
+
+    def update_comboboxes(self):
+        self.ui.comboBox.clear()
+        self.ui.comboBox_2.clear()
+        self.ui.comboBox.addItems(self.selected_encodings)
+        self.ui.comboBox_2.addItems(self.selected_encodings)
 
     def convert(self) -> None:
         """

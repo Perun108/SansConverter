@@ -101,14 +101,3 @@ class UiHelpDialog(object):
                 'Velthuis: <a href="https://en.wikipedia.org/wiki/Velthuis">https://en.wikipedia.org/wiki/Velthuis</a>',
             )
         )
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = UiHelpDialog()
-    ui.setupGUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())

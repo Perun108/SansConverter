@@ -5,12 +5,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from encoding_mappings import Encodings
 
 
-class Ui_SansConverter(object):
+class Ui_SansConverter(QtWidgets.QDialog):
     """Main window of the application"""
+
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.selected_encodings = []
 
     def setupUi(self, SansConverter):
         """Sets up the main window"""
 
+        # Main window
         SansConverter.setObjectName("SansConverter")
         SansConverter.resize(620, 550)
         sizePolicy = QtWidgets.QSizePolicy(
@@ -21,11 +26,14 @@ class Ui_SansConverter(object):
         sizePolicy.setHeightForWidth(SansConverter.sizePolicy().hasHeightForWidth())
         SansConverter.setSizePolicy(sizePolicy)
         SansConverter.setMinimumSize(QtCore.QSize(0, 0))
+
         icon = QtGui.QIcon()
         icon.addPixmap(
             QtGui.QPixmap("media/icons8-om-96.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off
         )
         SansConverter.setWindowIcon(icon)
+
+        # centralWidget
         self.centralwidget = QtWidgets.QWidget(SansConverter)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
@@ -40,10 +48,12 @@ class Ui_SansConverter(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout_2.setObjectName("gridLayout_2")
+
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox.setFocusPolicy(QtCore.Qt.TabFocus)
         self.checkBox.setObjectName("checkBox")
         self.gridLayout_2.addWidget(self.checkBox, 3, 9, 1, 1)
+
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
@@ -58,14 +68,17 @@ class Ui_SansConverter(object):
         self.textEdit.setAcceptRichText(False)
         self.textEdit.setObjectName("textEdit")
         self.gridLayout_2.addWidget(self.textEdit, 1, 0, 4, 1)
+
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setFocusPolicy(QtCore.Qt.TabFocus)
         self.pushButton_3.setObjectName("pushButton_3")
         self.gridLayout_2.addWidget(self.pushButton_3, 1, 9, 1, 1)
+
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setFocusPolicy(QtCore.Qt.TabFocus)
         self.pushButton_4.setObjectName("pushButton_4")
         self.gridLayout_2.addWidget(self.pushButton_4, 2, 9, 1, 1)
+
         self.comboBox_2 = QtWidgets.QComboBox(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -77,10 +90,12 @@ class Ui_SansConverter(object):
         self.comboBox_2.setFocusPolicy(QtCore.Qt.TabFocus)
         self.comboBox_2.setObjectName("comboBox_2")
         self.gridLayout_2.addWidget(self.comboBox_2, 7, 0, 1, 1)
+
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setFocusPolicy(QtCore.Qt.TabFocus)
         self.pushButton.setObjectName("pushButton")
         self.gridLayout_2.addWidget(self.pushButton, 11, 9, 1, 1)
+
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -91,9 +106,8 @@ class Ui_SansConverter(object):
         self.comboBox.setSizePolicy(sizePolicy)
         self.comboBox.setFocusPolicy(QtCore.Qt.TabFocus)
         self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItems([encoding.value for encoding in Encodings])
-        self.comboBox_2.addItems([encoding.value for encoding in Encodings])
         self.gridLayout_2.addWidget(self.comboBox, 0, 0, 1, 1)
+
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -105,6 +119,7 @@ class Ui_SansConverter(object):
         self.pushButton_2.setFocusPolicy(QtCore.Qt.TabFocus)
         self.pushButton_2.setObjectName("pushButton_2")
         self.gridLayout_2.addWidget(self.pushButton_2, 6, 0, 1, 1)
+
         self.textBrowser = QtWidgets.QTextEdit(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
@@ -118,10 +133,12 @@ class Ui_SansConverter(object):
         self.textBrowser.setObjectName("textBrowser")
         self.textBrowser.setReadOnly(True)
         self.gridLayout_2.addWidget(self.textBrowser, 11, 0, 1, 1)
+
         SansConverter.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(SansConverter)
         self.statusbar.setObjectName("statusbar")
         SansConverter.setStatusBar(self.statusbar)
+
         self.menuBar = QtWidgets.QMenuBar(SansConverter)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 815, 30))
         self.menuBar.setObjectName("menuBar")
@@ -136,6 +153,7 @@ class Ui_SansConverter(object):
         self.menuQuit = QtWidgets.QMenu(self.menuBar)
         self.menuQuit.setObjectName("menuQuit")
         SansConverter.setMenuBar(self.menuBar)
+
         self.actionUndo = QtWidgets.QAction(SansConverter)
         self.actionUndo.setObjectName("actionUndo")
         self.actionRedo = QtWidgets.QAction(SansConverter)
@@ -156,6 +174,7 @@ class Ui_SansConverter(object):
         self.actionTransliteration_help.setObjectName("actionTransliteration_help")
         self.actionAbout_SansConverter = QtWidgets.QAction(SansConverter)
         self.actionAbout_SansConverter.setObjectName("actionAbout_SansConverter")
+
         self.menuEdit.addAction(self.actionUndo)
         self.menuEdit.addAction(self.actionRedo)
         self.menuEdit.addSeparator()
@@ -169,11 +188,12 @@ class Ui_SansConverter(object):
         self.menuHelp.addAction(self.actionTransliteration_help)
         self.menuHelp.addAction(self.actionAbout_SansConverter)
         self.menuQuit.addAction(self.actionQuit)
+
         self.menuBar.addAction(self.menuEdit.menuAction())
         self.menuBar.addAction(self.menuSettings.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
         self.menuBar.addAction(self.menuQuit.menuAction())
-        # Linking buttons, hotkeys and menus to functions
+
         self.actionClear.setShortcut("Ctrl+R")
         self.actionCopy.setShortcut("Ctrl+C")
         self.actionPaste.setShortcut("Ctrl+V")
@@ -182,8 +202,9 @@ class Ui_SansConverter(object):
         self.actionQuit.setShortcut("Ctrl+Q")
         self.actionSwap.setShortcut("Alt+S")
         self.retranslateUi(SansConverter)
+
         QtCore.QMetaObject.connectSlotsByName(SansConverter)
-        # Tabbing order of buttons and other widgets
+
         SansConverter.setTabOrder(self.textEdit, self.comboBox)
         SansConverter.setTabOrder(self.comboBox, self.pushButton_3)
         SansConverter.setTabOrder(self.pushButton_3, self.pushButton_4)
@@ -203,6 +224,7 @@ class Ui_SansConverter(object):
         SansConverter.setStatusTip(
             _translate("SansConverter", "Welcome to SansConverter")
         )
+
         self.pushButton.setText(_translate("SansConverter", "Copy text"))
         self.pushButton.setStatusTip(
             _translate("SansConverter", "Copy converted text (Ctrl+C)")
@@ -230,6 +252,7 @@ class Ui_SansConverter(object):
         self.pushButton_4.setToolTip(
             _translate("SansConverter", "Paste text to convert (Ctrl+V)")
         )
+
         self.checkBox.setText(_translate("SansConverter", 'Use "ṃ"'))
         self.checkBox.setStatusTip(
             _translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")')
@@ -237,11 +260,6 @@ class Ui_SansConverter(object):
         self.checkBox.setToolTip(
             _translate("SansConverter", 'Select anusvara ("ṃ" or "ṁ")')
         )
-        for ind, encoding in enumerate(Encodings):
-            self.comboBox.setItemText(ind, _translate("SansConverter", encoding.value))
-            self.comboBox_2.setItemText(
-                ind, _translate("SansConverter", encoding.value)
-            )
 
         self.comboBox.setStatusTip(
             _translate(
@@ -256,6 +274,7 @@ class Ui_SansConverter(object):
                 'Select input transliteration. For more info see "Help"→"Transliteration help"',
             )
         )
+
         self.menuEdit.setTitle(_translate("SansConverter", "&Edit"))
         self.menuEdit.setStatusTip(_translate("SansConverter", "Edit"))
         self.menuSettings.setTitle(_translate("SansConverter", "&Settings"))
@@ -264,6 +283,7 @@ class Ui_SansConverter(object):
         self.menuHelp.setStatusTip(_translate("SansConverter", "&Help"))
         self.menuQuit.setTitle(_translate("SansConverter", "&Quit"))
         self.menuQuit.setStatusTip(_translate("SansConverter", "Quit"))
+
         self.actionUndo.setText(_translate("SansConverter", "&Undo"))
         self.actionUndo.setStatusTip(_translate("SansConverter", "Undo Ctrl+Z"))
         self.actionRedo.setText(_translate("SansConverter", "&Redo"))

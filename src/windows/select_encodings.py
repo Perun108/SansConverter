@@ -17,10 +17,10 @@ from windows.select_encodings_warning import WarningDialog
 class UiSelectEncodingsDialog(QDialog):
     """Enable/Disable encodings GUI"""
 
-    def __init__(self, parent=None):
+    def __init__(self, parent):
         super().__init__(parent)
         self.setupUi(self)
-        self.selected_encodings = []
+        self.parent_dialog = parent
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -41,7 +41,7 @@ class UiSelectEncodingsDialog(QDialog):
         self._add_checkboxes(Dialog)
 
         self.buttonBox.accepted.connect(self.check_selected_encodings)
-        self.buttonBox.rejected.connect(self.check_selected_encodings)
+        self.buttonBox.rejected.connect(self.reject)
 
         QMetaObject.connectSlotsByName(Dialog)
 
@@ -60,30 +60,17 @@ class UiSelectEncodingsDialog(QDialog):
     def get_selected_encodings(self):
         """Returns a list of selected encodings"""
 
-        selected_encodings = [cb.text() for cb in self.checkboxes if cb.isChecked()]
-        print(f"GET SELECTED {selected_encodings}")
-        return selected_encodings
+        return [cb.text() for cb in self.checkboxes if cb.isChecked()]
 
     def check_selected_encodings(self):
-        print("CHECK SELECTED")
         selected_encodings = self.get_selected_encodings()
-        print("SELECTED", selected_encodings)
         if not selected_encodings:
             warning_dialog = WarningDialog(self)
-            if warning_dialog.exec() == QDialog.accepted:
+            # Accepted here means 'Use All Available Encodings'
+            if warning_dialog.exec_() == QDialog.Accepted:
                 self.accept()
+                self.selected_encodings = self.parent_dialog.all_encodings
             else:
                 return
         else:
             self.accept()
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    Dialog = QDialog()
-    ui = UiSelectEncodingsDialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
