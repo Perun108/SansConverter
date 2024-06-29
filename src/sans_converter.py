@@ -163,8 +163,34 @@ class SansConverter(QMainWindow):
                     input_chars = ALL_EXT_ENCODINGS[input_encoding_name]
                     output_chars = HK_EXT
 
+            # Balaram encoding has a bug with the IAST "ṣ" character,
+            # so we need to convert first to another encoding and then convert to Balaram.
+            elif (
+                input_encoding_name == Encodings.IAST.value
+                and output_encoding_name == Encodings.BALARAM.value
+                and "ṣ" in text.lower()
+            ):
+                text = convert(
+                    text,
+                    ROMAN_BASIC_ENCODINGS[input_encoding_name],
+                    ROMAN_BASIC_ENCODINGS[Encodings.VELTHIUS.value],
+                    input_encoding_name,
+                    Encodings.VELTHIUS.value,
+                    change_anusvara=self.ui.checkBox.isChecked(),
+                )
+                text = convert(
+                    text,
+                    ROMAN_BASIC_ENCODINGS[Encodings.VELTHIUS.value],
+                    ROMAN_BASIC_ENCODINGS[output_encoding_name],
+                    Encodings.VELTHIUS.value,
+                    output_encoding_name,
+                    change_anusvara=self.ui.checkBox.isChecked(),
+                )
+                self.ui.textBrowser.setPlainText(text)
+                return
+
             # Simplify transliteration of the similar encodings that are based on Roman script
-            elif input_encoding_name not in CYRILLIC_ENCODINGS and output_encoding_name not in CYRILLIC_ENCODINGS:
+            elif input_encoding_name in ROMAN_BASIC_ENCODINGS and output_encoding_name in ROMAN_BASIC_ENCODINGS:
                 input_chars = ROMAN_BASIC_ENCODINGS[input_encoding_name]
                 output_chars = ROMAN_BASIC_ENCODINGS[output_encoding_name]
 
