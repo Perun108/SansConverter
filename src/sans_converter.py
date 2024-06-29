@@ -162,6 +162,7 @@ class SansConverter(QMainWindow):
                 else:
                     input_chars = ALL_EXT_ENCODINGS[input_encoding_name]
                     output_chars = HK_EXT
+                    text = text.lower()
 
             # Balaram encoding has a bug with the IAST "ṣ" character,
             # so we need to convert first to another encoding and then convert to Balaram.

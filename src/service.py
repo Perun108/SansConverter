@@ -1,6 +1,7 @@
 from encoding_mappings import (
     ASPIRATED_CYRILLIC_LETTERS,
     ASPIRATED_ROMAN_LETTERS,
+    RUSSIAN_ENCODINGS,
     Encodings,
 )
 
@@ -31,7 +32,7 @@ def convert(
         return string
 
     for i, item in enumerate(input_characters):
-        if item in string:
+        if item in string and item != output_characters[i]:
             string = string.replace(item, output_characters[i])
 
     if input_encoding == Encodings.HK.value:
@@ -43,11 +44,11 @@ def convert(
     if input_encoding == Encodings.UKR.value or output_encoding == Encodings.UKR.value:
         string = _convert_ukrainian(string, input_encoding, output_encoding)
 
-    # Replace russian e
-    if input_encoding == Encodings.RUS.value:
+    if input_encoding in RUSSIAN_ENCODINGS and output_encoding not in RUSSIAN_ENCODINGS:
+        string = _replace_russian_e(string, output_encoding)
+
+    if output_encoding in RUSSIAN_ENCODINGS:
         string = _fix_russian_e_at_beginning(string)
-        if output_encoding != Encodings.RUS.value:
-            string = _replace_russian_e(string, output_encoding)
 
     # Set proper case for 'Дж'
     if "Дж" in string:
@@ -60,7 +61,7 @@ def _convert_ukrainian(string, input_encoding, output_encoding):
     # 'temp_symbols' is a temporary list of all the symbols in our converted text
     temp_symbols = _convert_aspirated_cyrillic_properly(string)
     # This is only for Ukrainian into Russian (change dga into dha)
-    if input_encoding == Encodings.UKR.value and output_encoding == Encodings.RUS.value:
+    if input_encoding == Encodings.UKR.value and output_encoding in RUSSIAN_ENCODINGS:
         temp_symbols = _change_ga_to_ha(temp_symbols)
         # 'x' is the joined list 's' (original converted text
         # but now with all necessary transormations)
