@@ -2,8 +2,7 @@
 
 import sys
 
-from PyQt5.QtCore import QPoint, QSettings, QSize
-from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
+from PyQt6 import QtCore, QtWidgets
 
 from encoding_mappings import (
     ALL_EXT_ENCODINGS,
@@ -20,17 +19,18 @@ from windows.help import UiHelpDialog
 from windows.select_encodings import UiSelectEncodingsDialog
 
 
-class SansConverter(QMainWindow):
+class SansConverter(QtWidgets.QMainWindow):
     """This is the main class with all the logic and connections between the GUI parts and class methods"""
 
-    settings = QSettings("Kos Perun", "SansConverter")
+    settings = QtCore.QSettings("Kos Perun", "SansConverter")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.ui = Ui_SansConverter()
-        self.ui.setupUi(self)
-        self.all_encodings = [item.value for item in Encodings]
+        self.ui.setupGUi(self)
+        self.setWindowFlags(QtCore.Qt.WindowType.Window)
 
+        self.all_encodings = [item.value for item in Encodings]
         # Read saved settings for "Use ṃ", original and target encodings, window
         # size and position:
         self.selected_encodings = self.settings.value("selected_encodings", [])
@@ -44,8 +44,8 @@ class SansConverter(QMainWindow):
         self.ui.comboBox.setCurrentText(self.settings.value("input_encoding_name"))
         self.ui.comboBox_2.setCurrentText(self.settings.value("output_encoding_name"))
         self.ui.checkBox.setChecked(self.settings.value("Use m", type=bool))
-        self.resize(self.settings.value("WindowSize", QSize(620, 550)))
-        self.move(self.settings.value("Position", QPoint(600, 230)))
+        self.resize(self.settings.value("WindowSize", QtCore.QSize(620, 550)))
+        self.move(self.settings.value("Position", QtCore.QPoint(600, 230)))
         # Linking buttons, hotkeys and menus to functions
         self.ui.pushButton.clicked.connect(self.copy_converted)
         self.ui.pushButton_2.clicked.connect(self.swap_encodings)
@@ -93,40 +93,30 @@ class SansConverter(QMainWindow):
         """
         Opens a dialog window with help in it
         """
-        self.window = QDialog()
-        self.help_ui = UiHelpDialog()
-        self.help_ui.setupGUi(self.window)
-        self.window.show()
-        self.window.adjustSize()
+        self.help_ui = UiHelpDialog(self)
+        self.help_ui.show()
+        self.help_ui.adjustSize()
 
     def open_about(self):
         """
         Opens a dialog window with 'About' information
         """
-        self.window = QDialog()
-        self.about_ui = UiAboutDialog()
-        self.about_ui.setupUi(self.window)
-        self.window.show()
-        self.window.adjustSize()
+        self.about_ui = UiAboutDialog(self)
+        self.about_ui.show()
+        self.about_ui.adjustSize()
 
     def open_select_encodings(self):
         """
         Opens a dialog window with selection of available encodings
         """
         dialog = UiSelectEncodingsDialog(self)
-        if dialog.exec_() == QDialog.Accepted:
+        if dialog.exec() == QtWidgets.QDialog.DialogCode.Accepted:
             self.selected_encodings = dialog.get_selected_encodings()
             if not self.selected_encodings:
                 self.selected_encodings = self.all_encodings
         else:
             self.selected_encodings = self.all_encodings
         self.update_comboboxes()
-
-        # self.window = QDialog()
-        # self.select_ui = UiSelectEncodingsDialog()
-        # self.select_ui.setupUi(self.window)
-        # self.window.show()
-        # self.window.adjustSize()
 
     def update_comboboxes(self):
         self.ui.comboBox.blockSignals(True)
@@ -243,6 +233,6 @@ class SansConverter(QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     MainWindow = SansConverter()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

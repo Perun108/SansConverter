@@ -6,8 +6,8 @@ authors = ["Kostiantyn Perun <kosperun@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-PyQt5 = "=5.15.10"
-pyqt5-qt5 = "=5.15.2"
+PyQt6 = "^6.7.0"
+pyqt6-qt6 = "^6.7.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
