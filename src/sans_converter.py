@@ -2,8 +2,8 @@
 
 import sys
 
-from PyQt5.QtCore import QSettings, QSize, QPoint
-from PyQt5.QtWidgets import QMainWindow, QDialog, QApplication
+from PyQt5.QtCore import QPoint, QSettings, QSize
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 
 from encoding_mappings import (
     ALL_EXT_ENCODINGS,
@@ -34,10 +34,13 @@ class SansConverter(QMainWindow):
         # Read saved settings for "Use ṃ", original and target encodings, window
         # size and position:
         self.selected_encodings = self.settings.value("selected_encodings", [])
+
         if not self.selected_encodings:
             self.selected_encodings = self.all_encodings
-            self.update_comboboxes()
             self.open_select_encodings()
+        else:
+            self.update_comboboxes()
+
         self.ui.comboBox.setCurrentText(self.settings.value("input_encoding_name"))
         self.ui.comboBox_2.setCurrentText(self.settings.value("output_encoding_name"))
         self.ui.checkBox.setChecked(self.settings.value("Use m", type=bool))
@@ -126,10 +129,16 @@ class SansConverter(QMainWindow):
         # self.window.adjustSize()
 
     def update_comboboxes(self):
+        self.ui.comboBox.blockSignals(True)
+        self.ui.comboBox_2.blockSignals(True)
+
         self.ui.comboBox.clear()
         self.ui.comboBox_2.clear()
         self.ui.comboBox.addItems(self.selected_encodings)
         self.ui.comboBox_2.addItems(self.selected_encodings)
+
+        self.ui.comboBox.blockSignals(False)
+        self.ui.comboBox_2.blockSignals(False)
 
     def convert(self) -> None:
         """
@@ -155,10 +164,7 @@ class SansConverter(QMainWindow):
                     output_chars = HK_EXT
 
             # Simplify transliteration of the similar encodings that are based on Roman script
-            elif (
-                input_encoding_name not in CYRILLIC_ENCODINGS
-                and output_encoding_name not in CYRILLIC_ENCODINGS
-            ):
+            elif input_encoding_name not in CYRILLIC_ENCODINGS and output_encoding_name not in CYRILLIC_ENCODINGS:
                 input_chars = ROMAN_BASIC_ENCODINGS[input_encoding_name]
                 output_chars = ROMAN_BASIC_ENCODINGS[output_encoding_name]
 
@@ -206,6 +212,7 @@ class SansConverter(QMainWindow):
         self.settings.setValue("Use m", self.ui.checkBox.isChecked())
         self.settings.setValue("WindowSize", self.size())
         self.settings.setValue("Position", self.pos())
+        self.settings.setValue("selected_encodings", self.selected_encodings)
 
 
 if __name__ == "__main__":
