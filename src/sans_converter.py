@@ -232,7 +232,11 @@ class SansConverter(QtWidgets.QMainWindow):
         self.settings.setValue("selected_encodings", self.selected_encodings)
 
 
-if __name__ == "__main__":
+def main():
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = SansConverter()
+    MainWindow = SansConverter()  # noqa
     sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()
