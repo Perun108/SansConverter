@@ -9,7 +9,7 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
 )
 
-from windows.select_encodings_warning import WarningDialog
+from src.windows.select_encodings_warning import WarningDialog
 
 
 class UiSelectEncodingsDialog(QDialog):
