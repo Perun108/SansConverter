@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sansconverter"
-version = "0.1.0"
+version = "2.0"
 description = "A converter for different Sanskrit transliteration systems"
 authors = ["Kostiantyn Perun <kosperun@gmail.com>"]
 

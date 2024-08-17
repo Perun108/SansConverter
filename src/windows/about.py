@@ -11,7 +11,7 @@ class UiAboutDialog(QtWidgets.QDialog):
         # parent dialog will be SansConverter
         self.parent_dialog = parent
         self.setupUi(self)
-        self.setWindowFlags(QtCore.Qt.WindowType.Popup)
+        self.setWindowFlags(QtCore.Qt.WindowType.Dialog)
 
     def setupUi(self, Dialog):
         """Sets up 'About' dialog window"""
@@ -74,9 +74,9 @@ class UiAboutDialog(QtWidgets.QDialog):
                 "It can also be used to type in Sanskrit text with diacritics (using HK or Velthuis systems)."
                 "<br/>"
                 "<br/>"
-                "Copyright © 2022 Kostiantyn Perun."
+                "Copyright © 2022-2024 Kostiantyn Perun."
                 "<br/>"
-                "Version 1.7"
+                "Version 2.0"
                 "<br/>"
                 '<a href="https://github.com/Perun108">https://github.com/Perun108</a>'
                 "<br/>"

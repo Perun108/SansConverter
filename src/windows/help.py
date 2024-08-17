@@ -11,7 +11,7 @@ class UiHelpDialog(QtWidgets.QDialog):
         # parent dialog will be SansConverter
         self.parent_dialog = parent
         self.setupUi(self)
-        self.setWindowFlags(QtCore.Qt.WindowType.Popup)
+        self.setWindowFlags(QtCore.Qt.WindowType.Dialog)
 
     def setupUi(self, Dialog):
         """Sets up Help dialog window"""
@@ -62,7 +62,7 @@ class UiHelpDialog(QtWidgets.QDialog):
 
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Help"))
-        self.pushButton.setText(_translate("Dialog", "OK"))
+        self.pushButton.setText(_translate("Dialog", "Close"))
         self.label.setText(
             _translate(
                 "Dialog",
@@ -74,7 +74,10 @@ class UiHelpDialog(QtWidgets.QDialog):
                 "<br/>"
                 "<b>- Velthuis</b> is another ASCII scheme which allows capital letters."
                 "<br/>"
-                "- Cyrillic (Russian and Ukrainian) are based on the IAST system."
+                "<b>- Cyrillic</b> (Ukrainian and Russian) is based on the IAST system."
+                "<br/>"
+                "<b>- GauraTimes</b> is a legacy non-Unicode Cyrillic transliteration system developed by ISKCON BBT "
+                "which uses a special font of the same name."
                 "<br/>"
                 "<br/>"
                 "<b>Velthuis scheme:</b>"
