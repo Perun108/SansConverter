@@ -22,7 +22,7 @@ class Ui_SansConverter(QtWidgets.QDialog):
         SansConverter.setMinimumSize(QtCore.QSize(0, 0))
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("media/icons8-om-96.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("icons8-om-96.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         SansConverter.setWindowIcon(icon)
 
         # centralWidget
